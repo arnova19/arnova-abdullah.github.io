@@ -10,7 +10,7 @@
 <style>
   :root{
     --bg:#EEF2EA;
-    --bg-card:#F7F9F5;
+    --bg-card:rgba(255,255,255,0.5);
     --grid-line:#D3DECB;
     --grid-line-strong:#B9C8AF;
     --ink:#1E2B22;
@@ -30,17 +30,46 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    background:var(--bg);
+    background:
+      radial-gradient(1100px circle at 12% -8%, rgba(43,98,112,0.10), transparent 55%),
+      radial-gradient(900px circle at 88% 6%, rgba(177,90,40,0.09), transparent 50%),
+      radial-gradient(800px circle at 50% 100%, rgba(43,98,112,0.06), transparent 60%),
+      linear-gradient(180deg, #F9FAF7 0%, #F1F3EE 55%, #EEF1EC 100%);
+    background-attachment:fixed;
     color:var(--ink);
     font-family:var(--sans);
     line-height:1.55;
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size:28px 28px;
   }
-  .card-shadow{ box-shadow:0 1px 2px rgba(30,43,34,0.04), 0 6px 16px rgba(30,43,34,0.05); transition:box-shadow .18s, transform .18s; }
-  .card-shadow:hover{ box-shadow:0 2px 4px rgba(30,43,34,0.06), 0 10px 24px rgba(30,43,34,0.08); transform:translateY(-1px); }
+  .card-shadow{
+    box-shadow:0 1px 2px rgba(30,43,34,0.04), 0 6px 16px rgba(30,43,34,0.05);
+    transition:box-shadow .18s, transform .18s;
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+  .card-shadow:hover{ box-shadow:0 4px 10px rgba(30,43,34,0.08), 0 14px 32px rgba(30,43,34,0.10); transform:translateY(-3px); }
+
+  /* ---------- SCROLL PROGRESS ---------- */
+  .scroll-progress{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--copper),var(--teal)); width:0%; z-index:100; transition:width .1s linear; }
+
+  /* ---------- REVEAL ON SCROLL ---------- */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .65s cubic-bezier(.2,.7,.3,1), transform .65s cubic-bezier(.2,.7,.3,1); }
+  .reveal.visible{ opacity:1; transform:none; }
+
+  /* ---------- GRADIENT NAME ---------- */
+  h1.name{
+    background:linear-gradient(100deg, var(--ink) 35%, var(--copper) 65%, var(--teal) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    background-size:180% 100%; animation:name-sheen 6s ease-in-out infinite alternate, hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .08s both;
+  }
+  .role-line{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .18s both; }
+  .summary{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .28s both; }
+  .contact-row{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .38s both; }
+  .cta-row{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .48s both; }
+  @keyframes name-sheen{ 0%{ background-position:0% 50%; } 100%{ background-position:100% 50%; } }
+  @media (prefers-reduced-motion: reduce){
+    h1.name, .role-line, .summary, .contact-row, .cta-row, .photo-frame, .sticky-note{ animation:none !important; }
+  }
   a{ color:inherit; }
   ::selection{ background:var(--copper); color:#fff; }
   :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
@@ -52,8 +81,12 @@
   .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1000px; margin:0 auto; }
   .logo{ font-family:var(--hand); font-weight:600; font-size:22px; color:var(--copper); }
   nav.links{ display:flex; gap:22px; font-family:var(--mono); font-size:12px; letter-spacing:0.04em; }
-  nav.links a{ text-decoration:none; color:var(--ink-mid); }
+  nav.links a{ text-decoration:none; color:var(--ink-mid); position:relative; padding:4px 0; }
+  nav.links a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--copper); transition:width .2s ease; }
   nav.links a:hover{ color:var(--ink); }
+  nav.links a:hover::after{ width:100%; }
+  nav.links a.active{ color:var(--ink); }
+  nav.links a.active::after{ width:100%; }
   @media(max-width:760px){ nav.links{ display:none; } }
 
   /* ---------- HERO ---------- */
@@ -64,26 +97,39 @@
     width:220px; height:220px; border-radius:50%; border:2px dashed var(--grid-line-strong);
     background:var(--bg-card); display:flex; align-items:center; justify-content:center;
     font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); text-align:center; padding:16px;
+    position:relative; z-index:1; animation:photo-float 5s ease-in-out infinite, hero-in-plain .8s cubic-bezier(.2,.7,.3,1) .2s both;
   }
+  .photo-frame::before{
+    content:''; position:absolute; inset:-22px; z-index:-1; border-radius:50%;
+    background:radial-gradient(circle, rgba(177,90,40,0.18), rgba(43,98,112,0.12) 60%, transparent 75%);
+    filter:blur(6px);
+  }
+  @keyframes photo-float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
   @media(max-width:760px){ .photo-frame{ width:140px; height:140px; margin-top:8px; } }
   .sticky-note{
     display:inline-block; font-family:var(--hand); font-size:20px; color:var(--teal);
     background:#fff; border:1px solid var(--border); padding:8px 16px; border-radius:2px;
     transform:rotate(-2deg); box-shadow:2px 3px 0 var(--grid-line-strong); margin-bottom:22px;
+    animation:hero-in .7s cubic-bezier(.2,.7,.3,1) both;
   }
+  @keyframes hero-in{ from{ opacity:0; transform:translateY(14px) rotate(-2deg); } to{ opacity:1; transform:translateY(0) rotate(-2deg); } }
+  @keyframes hero-in-plain{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
   h1.name{ font-size:clamp(36px,6.5vw,60px); font-weight:700; letter-spacing:-0.01em; line-height:1.05; }
   .role-line{ font-family:var(--mono); font-size:clamp(13px,2vw,15.5px); color:var(--copper); margin-top:14px; letter-spacing:0.02em; }
   .summary{ max-width:62ch; color:var(--ink-mid); font-size:16.5px; margin-top:20px; }
   .contact-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
-  .chip{ font-family:var(--mono); font-size:12.5px; color:var(--ink-mid); border:1px solid var(--border); background:var(--bg-card); padding:7px 12px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:border-color .15s, color .15s; }
+  .chip{ font-family:var(--mono); font-size:12.5px; color:var(--ink-mid); border:1px solid var(--border); background:var(--bg-card); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:7px 12px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:border-color .15s, color .15s; }
   .chip:hover{ border-color:var(--copper); color:var(--ink); }
   .chip .k{ color:var(--copper-dim); }
   .cta-row{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
-  .btn{ font-family:var(--mono); font-size:13px; letter-spacing:0.03em; padding:11px 18px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .15s; }
-  .btn-primary{ background:var(--copper); color:#fff; font-weight:600; }
-  .btn-primary:hover{ background:#9c4a1f; }
+  .btn{ font-family:var(--mono); font-size:13px; letter-spacing:0.03em; padding:11px 18px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .2s cubic-bezier(.2,.7,.3,1); }
+  .btn-primary{ background:var(--copper); color:#fff; font-weight:600; box-shadow:0 2px 8px rgba(177,90,40,0.25); }
+  .btn-primary:hover{ background:#9c4a1f; transform:translateY(-2px); box-shadow:0 6px 16px rgba(177,90,40,0.35); }
+  .btn-primary:hover span.arrow{ transform:translateX(4px); }
+  .btn span.arrow{ display:inline-block; transition:transform .25s ease; }
   .btn-ghost{ border:1px solid var(--border); color:var(--ink-mid); background:var(--bg-card); }
-  .btn-ghost:hover{ border-color:var(--teal); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--ink); transform:translateY(-2px); box-shadow:0 4px 12px rgba(30,43,34,0.08); }
 
   .doodle-wrap{ margin-top:44px; }
   .doodle text{ font-family:var(--hand); font-size:19px; fill:var(--teal); }
@@ -198,6 +244,7 @@
 </style>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header class="nav">
   <div class="nav-inner">
@@ -215,24 +262,24 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="sticky-note">currently: chasing 5G KPIs — and a PhD next</div>
+      <div class="sticky-note">currently: chasing 5G KPIs across three countries</div>
       <h1 class="name">Arnova Abdullah</h1>
       <div class="role-line">TELECOMMUNICATIONS ENGINEER · MOOSBURG, GERMANY</div>
       <p class="summary">
         I make 5G networks prove themselves — in vineyards, mines, and factory floors — and spend my
         spare cycles on the research questions fieldwork keeps raising. Formerly a lecturer. Currently
-        chasing signal, and a PhD.
+        chasing signal.
       </p>
       <div class="contact-row">
         <a class="chip" href="mailto:arnova.abdullah19@gmail.com"><span class="k">mail</span>arnova.abdullah19@gmail.com</a>
       </div>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#about">More about me →</a>
+        <a class="btn btn-primary" href="#about">More about me <span class="arrow">→</span></a>
         <a class="btn btn-ghost" href="Arnova_Abdullah_CV.pdf" download>Download CV</a>
       </div>
     </div>
-    <div class="photo-frame" aria-hidden="true">
-      <span>photo coming soon</span>
+    <div class="photo-frame">
+      <img src="photo.jpg" alt="Arnova Abdullah">
     </div>
   </div>
   <div class="wrap">
@@ -256,16 +303,16 @@
       stations in Dortmund.</p>
       <p>Somewhere in that fieldwork, the questions started outlasting the projects — a KPI that didn't
       behave the way the standard said it should, a sync error that only showed up underground. That's
-      the itch I haven't scratched yet, and it's why <strong>a PhD in wireless communications</strong> is
-      next: I want more room to chase 5G/6G performance, industrial IoT, and network architecture
-      questions all the way down.</p>
+      the itch that keeps pulling me toward the research side of every project: <strong>5G/6G performance,
+      industrial IoT, and network architecture</strong>, chased all the way down instead of stopping at
+      "it works."</p>
       <div class="focus-tags">
         <span class="focus-tag">5G/6G performance</span>
         <span class="focus-tag">Industrial IoT</span>
         <span class="focus-tag">Network architecture</span>
       </div>
     </div>
-    <div class="side-panel card-shadow">
+    <div class="side-panel card-shadow reveal">
       <h3>Off the clock</h3>
       <div class="off-item"><span class="ic">♪</span><div class="t"><b>Ukulele</b>A much slower signal to tune than a spectrum analyzer.</div></div>
       <div class="off-item"><span class="ic">✎</span><div class="t"><b>Drawing</b>No KPIs, no dashboards — just a page and whatever's in front of me.</div></div>
@@ -277,7 +324,7 @@
 <section id="research">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§1</span><h2 class="sec-title">Publication</h2><div class="sec-rule"></div></div>
-    <div class="pub-card card-shadow">
+    <div class="pub-card card-shadow reveal">
       <div class="pub-venue">IEEE WoWMoM 2025 · Fort Worth, Texas</div>
       <div class="pub-title">A Measurement Study on 5G Performance in Steep Vineyards</div>
       <div class="pub-authors">Iftikhar A. Saeed, <strong>Arnova Abdullah</strong>, Daniel Schneider, Melanie Reinelt, Simon Pannek, Tim Farnschläder, Hans Frey, Wolfgang Kieß, Michael Wimmer.</div>
@@ -290,37 +337,37 @@
     <div class="sec-head" style="margin-top:52px;"><span class="sec-num">§2</span><h2 class="sec-title">Research &amp; side projects</h2><div class="sec-rule"></div></div>
     <p class="sec-sub" style="margin-top:-18px;">What the curiosity does when there's no client asking for it.</p>
     <div class="proj-grid">
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Mobile · Computer Vision</div>
         <div class="proj-title">Emotion Detection App</div>
         <div class="proj-desc">A React Native Android app recognising happy / sad / neutral faces in real time, using a CNN trained with TensorFlow and Wolfram Mathematica feature extraction.</div>
         <div class="proj-stack"><span>React Native</span><span>TensorFlow</span><span>CNN</span></div>
       </div>
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Security · O-RAN</div>
         <div class="proj-title">Attack Evaluation on Open RAN Simulators</div>
         <div class="proj-desc">Mapped CVEs to MITRE ATT&amp;CK and ran Atomic Red Team tests against a Kubernetes-based O-RAN real-time RIC.</div>
         <div class="proj-stack"><span>Atomic Red Team</span><span>Kali Linux</span><span>Kubernetes</span></div>
       </div>
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Machine Learning</div>
         <div class="proj-title">Music Genre Classification</div>
         <div class="proj-desc">Compared Decision Tree, Random Forest, SVM, and semi-supervised models on Spotify API audio data, reaching 73% accuracy.</div>
         <div class="proj-stack"><span>scikit-learn</span><span>pandas</span></div>
       </div>
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Networking · VoIP</div>
         <div class="proj-title">SIP Trunk &amp; VoIP Traffic Analysis</div>
         <div class="proj-desc">Built a LAN/VoIP simulation in Cisco Packet Tracer and dissected SIP, SDP, and RTP flows in Wireshark.</div>
         <div class="proj-stack"><span>Packet Tracer</span><span>Wireshark</span></div>
       </div>
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Signal Processing</div>
         <div class="proj-title">Stochastic Process Analysis</div>
         <div class="proj-desc">Simulated a binary symmetric channel, estimated PDFs, and analysed an ideal low-pass filter against discrete-time white noise, in Python.</div>
         <div class="proj-stack"><span>Python</span><span>NumPy</span></div>
       </div>
-      <div class="proj-card card-shadow">
+      <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Networking · QoS</div>
         <div class="proj-title">QoS-to-DSCP Domain Mapping</div>
         <div class="proj-desc">Designed an enterprise DiffServ domain in Cisco Packet Tracer and validated DSCP mapping and scheduling behaviour.</div>
@@ -334,7 +381,7 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§3</span><h2 class="sec-title">Where I've worked</h2><div class="sec-rule"></div></div>
 
-    <div class="log-entry card-shadow">
+    <div class="log-entry card-shadow reveal">
       <div class="log-meta"><span>Aug 2024 — Present · Dortmund, Germany</span><span class="proj">FH Dortmund · EU research consortium</span></div>
       <div class="log-title">Research Associate</div>
       <div class="log-org">FH Dortmund, Institute of Computer Science</div>
@@ -345,7 +392,7 @@
       </ul>
     </div>
 
-    <div class="log-entry card-shadow">
+    <div class="log-entry card-shadow reveal">
       <div class="log-meta"><span>Apr 2024 — Jul 2024 · Koblenz, Germany</span><span class="proj">Project: NoLa</span></div>
       <div class="log-title">Research Associate</div>
       <div class="log-org">University of Koblenz, Institute of Computer Science</div>
@@ -355,7 +402,7 @@
       </ul>
     </div>
 
-    <div class="log-entry card-shadow">
+    <div class="log-entry card-shadow reveal">
       <div class="log-meta"><span>Apr 2023 — Mar 2024 · Aachen, Germany</span><span class="proj">Project: 6G-ANNA (BMBF)</span></div>
       <div class="log-title">Student Assistant</div>
       <div class="log-org">Fraunhofer Institute for Production Technology IPT</div>
@@ -366,7 +413,7 @@
       </ul>
     </div>
 
-    <div class="log-entry card-shadow">
+    <div class="log-entry card-shadow reveal">
       <div class="log-meta"><span>May 2022 — Mar 2023 · Bonn, Germany</span><span class="proj">Project: 5G CampusOS (BMWK)</span></div>
       <div class="log-title">Working Student</div>
       <div class="log-org">brown-iposs GmbH</div>
@@ -376,7 +423,7 @@
       </ul>
     </div>
 
-    <details class="log-entry card-shadow">
+    <details class="log-entry card-shadow reveal">
       <summary>
         <div class="log-meta"><span>Nov 2019 — Apr 2021 · Dhaka, Bangladesh</span><span class="proj">Faculty</span></div>
         <div class="log-title">Lecturer — Computer Science &amp; Engineering</div>
@@ -389,7 +436,7 @@
       </ul>
     </details>
 
-    <details class="log-entry card-shadow">
+    <details class="log-entry card-shadow reveal">
       <summary>
         <div class="log-meta"><span>Jul 2018 — Dec 2018 · Khulna, Bangladesh</span><span class="proj">Faculty</span></div>
         <div class="log-title">Graduate Teaching Assistant — ECE</div>
@@ -408,7 +455,7 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§4</span><h2 class="sec-title">Skills &amp; tools</h2><div class="sec-rule"></div></div>
     <div class="panel-grid">
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Programming &amp; automation</h3></div>
         <div class="tag-row">
           <button type="button" class="tag skill-btn" data-detail="Used to build KPI extraction, log parsing, and regression-style validation pipelines at FH Dortmund, plus the 5G QoS benchmarking framework in my Master's thesis (10,000+ samples).">Python</button>
@@ -417,7 +464,7 @@
         </div>
         <div class="skill-detail"></div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>RF &amp; drive-test tools</h3></div>
         <div class="tag-row">
           <button type="button" class="tag skill-btn" data-detail="Used for 4G/5G walk tests capturing real-world KPIs at brown-iposs, and for field-testing the 5G campus network across the Koblenz vineyard (NoLa project).">R&amp;S ROMES4</button>
@@ -428,7 +475,7 @@
         </div>
         <div class="skill-detail"></div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>5G core, RAN &amp; UEs</h3></div>
         <div class="tag-row">
           <span class="tag">Open5GS</span><span class="tag">OAI</span>
@@ -437,7 +484,7 @@
         </div>
         <div class="skill-detail"></div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Simulation, security &amp; ops</h3></div>
         <div class="tag-row">
           <button type="button" class="tag skill-btn" data-detail="Used to run the Kubernetes-based O-RAN real-time RIC targeted in an attack-evaluation side project, mapping CVEs to MITRE ATT&amp;CK with Atomic Red Team.">Docker / Kubernetes</button>
@@ -456,7 +503,7 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§5</span><h2 class="sec-title">Education</h2><div class="sec-rule"></div></div>
 
-    <div class="edu-entry card-shadow">
+    <div class="edu-entry card-shadow reveal">
       <div>
         <div class="edu-degree">M.Sc. Communication Systems and Networks</div>
         <div class="edu-school">TH Köln, Germany — 2021 – 2024</div>
@@ -466,7 +513,7 @@
       <div class="edu-grade"><div class="g">1.4</div><div class="l">FINAL GRADE</div></div>
     </div>
 
-    <div class="edu-entry card-shadow">
+    <div class="edu-entry card-shadow reveal">
       <div>
         <div class="edu-degree">B.Sc. Electronics and Communication Engineering</div>
         <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
@@ -480,34 +527,34 @@
     <div class="sec-head" style="margin-top:48px;"><span class="sec-num">§6</span><h2 class="sec-title">Certifications</h2><div class="sec-rule"></div></div>
     <p class="sec-sub" style="margin-top:-18px;">Organized by area — more to be added.</p>
     <div class="panel-grid">
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Networking</h3></div>
         <div class="tag-row">
           <span class="tag">CCNA Routing &amp; Switching</span>
         </div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Automation &amp; DevOps</h3></div>
         <div class="tag-row">
           <span class="tag">Cisco DevNet Associate</span>
         </div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Security</h3></div>
         <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>5G</h3></div>
         <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
       </div>
-      <div class="module card-shadow">
+      <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>MATLAB</h3></div>
         <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
       </div>
     </div>
 
     <div class="split" style="margin-top:16px;">
-      <div class="mini-panel card-shadow">
+      <div class="mini-panel card-shadow reveal">
         <h3>Languages</h3>
         <div class="item">English <span class="v">Fluent</span></div>
         <div class="item">German (telc B1) <span class="v cert-pending">certificate pending upload</span></div>
@@ -523,9 +570,9 @@
     <div class="footer-inner">
       <div>
         <h2>Say hi, or talk 5G with me.</h2>
-        <p class="sub">Open to roles and collaborations in RF/5G validation, test automation, and industrial network research — and always happy to talk about the PhD hunt.</p>
+        <p class="sub">Open to roles and collaborations in RF/5G validation, test automation, and industrial network research.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:arnova.abdullah19@gmail.com">Email me →</a>
+          <a class="btn btn-primary" href="mailto:arnova.abdullah19@gmail.com">Email me <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -536,6 +583,49 @@
   </div>
 </footer>
 
+<script>
+  // Scroll progress bar
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+  }
+  document.addEventListener('scroll', updateProgress, { passive:true });
+  updateProgress();
+
+  // Reveal on scroll
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // Active nav highlighting
+  var navLinks = document.querySelectorAll('nav.links a');
+  var sections = Array.prototype.slice.call(navLinks).map(function(link){
+    return document.querySelector(link.getAttribute('href'));
+  }).filter(Boolean);
+  function updateActiveNav(){
+    var pos = window.scrollY + 120;
+    var current = sections[0];
+    sections.forEach(function(sec){ if(sec.offsetTop <= pos) current = sec; });
+    navLinks.forEach(function(link){
+      link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
+    });
+  }
+  document.addEventListener('scroll', updateActiveNav, { passive:true });
+  updateActiveNav();
+</script>
 <script>
   document.querySelectorAll('.skill-btn').forEach(function(btn){
     btn.addEventListener('click', function(){
