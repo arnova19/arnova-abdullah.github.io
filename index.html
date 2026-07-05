@@ -232,6 +232,10 @@
   .tag{ font-family:var(--mono); font-size:11.5px; color:var(--ink-mid); border:1px solid var(--grid-line-strong); padding:5px 9px; border-radius:var(--radius); background:#fff; }
   .tag.placeholder{ color:var(--ink-dim); border-style:dashed; background:transparent; }
   .cert-pending{ color:var(--ink-dim) !important; font-style:italic; }
+  a.tag.cert-link{ text-decoration:none; display:inline-flex; align-items:center; gap:5px; transition:border-color .15s, color .15s; }
+  a.tag.cert-link:hover{ border-color:var(--copper); color:var(--ink); }
+  a.tag.cert-link::after{ content:'↗'; color:var(--copper-dim); }
+  a.cert-link-inline{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); font-family:var(--mono); font-size:12px; white-space:nowrap; margin-left:10px; }
 
   /* ---------- EDUCATION ---------- */
   .edu-entry{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; margin-bottom:14px; }
@@ -556,6 +560,10 @@
           <span class="lightbox-trigger" data-src="img/master3.png"><img src="img/master3.png" alt="Master's thesis work" draggable="false"></span>
           <span class="lightbox-trigger" data-src="img/master4.jpg"><img src="img/master4.jpg" alt="Master's thesis work" draggable="false"></span>
           <span class="lightbox-trigger" data-src="img/master5.png"><img src="img/master5.png" alt="Master's thesis work" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/jahrgangsbeste.jpg"><img src="img/jahrgangsbeste.jpg" alt="Jahrgangsbeste award ceremony" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/top-graduate.jpg"><img src="img/top-graduate.jpg" alt="Jahrgangsbeste award ceremony" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/top2.jpg"><img src="img/top2.jpg" alt="Jahrgangsbeste award handover" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/top.jpg"><img src="img/top.jpg" alt="Jahrgangsbeste award and gift" draggable="false"></span>
         </div>
       </div>
       <div class="edu-grade"><div class="g">1.4</div><div class="l">FINAL GRADE</div></div>
@@ -567,6 +575,7 @@
         <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
         <div class="edu-detail">University Merit Scholarship, 2014 – 2018.</div>
         <div class="award-badge">Dean's List Award — 2016 &amp; 2017</div>
+        <a class="cert-link-inline" href="certificates/Arnova%20Abdullah%20-%20Dens%20Award%20-%20Bachelor.pdf" target="_blank" rel="noopener">View certificate ↗</a>
       </div>
       <div class="edu-grade"><div class="g">3 / 60</div><div class="l">CLASS RANK</div></div>
     </div>
@@ -593,7 +602,10 @@
       </div>
       <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>5G</h3></div>
-        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
+        <div class="tag-row">
+          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%205G%20Advanced%20Essential%20-%20Online%20Course.pdf" target="_blank" rel="noopener">5G Advanced Essential</a>
+          <a class="tag cert-link" href="certificates/CertificateOfCompletion_5G%20Architecture%20Design%20Protocols%20Evolution%20and%20Deployment.pdf" target="_blank" rel="noopener">5G Architecture, Design, Protocols, Evolution &amp; Deployment</a>
+        </div>
       </div>
       <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>MATLAB</h3></div>
@@ -605,7 +617,7 @@
       <div class="mini-panel card-shadow reveal">
         <h3>Languages</h3>
         <div class="item">English <span class="v">Fluent</span></div>
-        <div class="item">German (telc B1) <span class="v cert-pending">certificate pending upload</span></div>
+        <div class="item">German (telc B1) <a class="cert-link-inline" href="certificates/telcb1.pdf" target="_blank" rel="noopener">View certificate ↗</a></div>
         <div class="item">TOEFL <span class="v cert-pending">certificate pending upload</span></div>
         <div class="item">Bengali <span class="v">Native</span></div>
       </div>
