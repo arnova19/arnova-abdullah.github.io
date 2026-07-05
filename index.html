@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arnova Abdullah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF2EA;
+    --bg-card:#F7F9F5;
+    --grid-line:#D3DECB;
+    --grid-line-strong:#B9C8AF;
+    --ink:#1E2B22;
+    --ink-mid:#4B5B4E;
+    --ink-dim:#7C8B7C;
+    --copper:#B15A28;
+    --copper-dim:#C98252;
+    --teal:#2B6270;
+    --teal-dim:#6C9AA3;
+    --border:#CBD6C2;
+    --radius:3px;
+    --sans:'IBM Plex Sans', system-ui, sans-serif;
+    --mono:'IBM Plex Mono','SFMono-Regular', Menlo, monospace;
+    --serif:'IBM Plex Serif', Georgia, serif;
+    --hand:'Caveat', cursive;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:28px 28px;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--copper); color:#fff; }
+  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 28px; }
+  .narrow{ max-width:700px; }
+
+  /* ---------- NAV ---------- */
+  header.nav{ position:sticky; top:0; z-index:50; background:rgba(238,242,234,0.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--border); }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1000px; margin:0 auto; }
+  .logo{ font-family:var(--hand); font-weight:600; font-size:22px; color:var(--copper); }
+  nav.links{ display:flex; gap:22px; font-family:var(--mono); font-size:12px; letter-spacing:0.04em; }
+  nav.links a{ text-decoration:none; color:var(--ink-mid); }
+  nav.links a:hover{ color:var(--ink); }
+  @media(max-width:760px){ nav.links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:70px 0 56px; border-bottom:1px solid var(--border); position:relative; }
+  .sticky-note{
+    display:inline-block; font-family:var(--hand); font-size:20px; color:var(--teal);
+    background:#fff; border:1px solid var(--border); padding:8px 16px; border-radius:2px;
+    transform:rotate(-2deg); box-shadow:2px 3px 0 var(--grid-line-strong); margin-bottom:22px;
+  }
+  h1.name{ font-size:clamp(36px,6.5vw,60px); font-weight:700; letter-spacing:-0.01em; line-height:1.05; }
+  .role-line{ font-family:var(--mono); font-size:clamp(13px,2vw,15.5px); color:var(--copper); margin-top:14px; letter-spacing:0.02em; }
+  .summary{ max-width:62ch; color:var(--ink-mid); font-size:16.5px; margin-top:20px; }
+  .contact-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+  .chip{ font-family:var(--mono); font-size:12.5px; color:var(--ink-mid); border:1px solid var(--border); background:var(--bg-card); padding:7px 12px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:border-color .15s, color .15s; }
+  .chip:hover{ border-color:var(--copper); color:var(--ink); }
+  .chip .k{ color:var(--copper-dim); }
+  .cta-row{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+  .btn{ font-family:var(--mono); font-size:13px; letter-spacing:0.03em; padding:11px 18px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .15s; }
+  .btn-primary{ background:var(--copper); color:#fff; font-weight:600; }
+  .btn-primary:hover{ background:#9c4a1f; }
+  .btn-ghost{ border:1px solid var(--border); color:var(--ink-mid); background:var(--bg-card); }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--ink); }
+
+  .doodle-wrap{ margin-top:44px; }
+  .doodle text{ font-family:var(--hand); font-size:19px; fill:var(--teal); }
+  .doodle .trace{ fill:none; stroke:var(--copper); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .doodle .baseline{ stroke:var(--grid-line-strong); stroke-width:1; stroke-dasharray:3 4; }
+
+  /* ---------- ABOUT / STORY ---------- */
+  .about{ padding:64px 0; border-bottom:1px solid var(--border); }
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:48px; }
+  @media(max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
+  .about p{ font-size:16px; color:var(--ink-mid); margin-bottom:16px; max-width:56ch; }
+  .about strong{ color:var(--ink); }
+  .focus-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+  .focus-tag{ font-family:var(--mono); font-size:12px; color:var(--teal); border:1px solid var(--teal-dim); padding:6px 12px; border-radius:var(--radius); background:var(--bg-card); }
+  .side-panel{ background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; }
+  .side-panel h3{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim); margin-bottom:14px; }
+  .off-item{ display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--grid-line); }
+  .off-item:first-child{ border-top:none; }
+  .off-item .ic{ font-family:var(--hand); font-size:22px; color:var(--copper); min-width:28px; }
+  .off-item .t{ font-size:13.5px; color:var(--ink-mid); line-height:1.5; }
+  .off-item .t b{ display:block; color:var(--ink); font-size:14.5px; font-family:var(--sans); font-weight:600; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:64px 0; border-bottom:1px solid var(--border); }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:32px; }
+  .sec-num{ font-family:var(--hand); color:var(--copper); font-size:20px; }
+  h2.sec-title{ font-size:clamp(22px,3vw,27px); font-weight:600; letter-spacing:-0.01em; }
+  .sec-sub{ color:var(--ink-mid); font-size:14.5px; margin:-18px 0 30px; max-width:60ch; }
+  .sec-rule{ flex:1; height:1px; background:var(--grid-line-strong); }
+
+  /* ---------- PUBLICATION ---------- */
+  .pub-card{ border:1px solid var(--teal-dim); background:var(--bg-card); border-radius:var(--radius); padding:26px; }
+  .pub-venue{ font-family:var(--mono); font-size:11.5px; color:var(--teal); text-transform:uppercase; letter-spacing:0.05em; }
+  .pub-title{ font-family:var(--serif); font-style:italic; font-size:19px; margin:10px 0 10px; max-width:38ch; color:var(--ink); }
+  .pub-authors{ font-size:13.5px; color:var(--ink-mid); max-width:54ch; }
+  .pub-meta{ margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:12px; color:var(--ink-dim); }
+  .pub-meta a{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:24px; }
+  @media(max-width:700px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; }
+  .proj-tag{ font-family:var(--mono); font-size:10.5px; color:var(--copper); text-transform:uppercase; letter-spacing:0.05em; }
+  .proj-title{ font-size:16px; font-weight:600; margin:8px 0 8px; color:var(--ink); }
+  .proj-desc{ font-size:13.5px; color:var(--ink-mid); line-height:1.55; }
+  .proj-stack{ margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
+  .proj-stack span{ font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); border:1px solid var(--grid-line-strong); padding:3px 8px; border-radius:var(--radius); }
+
+  /* ---------- FIELD NOTEBOOK / EXPERIENCE ---------- */
+  .log-entry{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:24px 24px 22px; margin-bottom:16px; border-left:3px solid var(--copper-dim); }
+  .log-meta{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.03em; }
+  .log-meta .proj{ color:var(--teal); }
+  .log-title{ font-size:18px; font-weight:600; margin-bottom:2px; color:var(--ink); }
+  .log-org{ font-size:14px; color:var(--ink-mid); margin-bottom:14px; }
+  .log-points{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .log-points li{ font-size:14px; color:var(--ink-mid); padding-left:18px; position:relative; line-height:1.55; }
+  .log-points li::before{ content:'—'; position:absolute; left:0; top:0; color:var(--copper); }
+  details.log-entry summary{ cursor:pointer; list-style:none; }
+  details.log-entry summary::-webkit-details-marker{ display:none; }
+  details.log-entry summary .expand-hint{ font-family:var(--mono); font-size:11.5px; color:var(--teal); margin-top:10px; display:inline-block; }
+  details.log-entry[open] summary .expand-hint{ display:none; }
+
+  /* ---------- SKILLS ---------- */
+  .panel-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media(max-width:700px){ .panel-grid{ grid-template-columns:1fr; } }
+  .module{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:20px 20px 18px; }
+  .module-head{ display:flex; align-items:center; gap:9px; margin-bottom:13px; }
+  .module-head .led{ width:7px; height:7px; border-radius:50%; background:var(--teal); }
+  .module-head h3{ font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink); }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:7px; }
+  .tag{ font-family:var(--mono); font-size:11.5px; color:var(--ink-mid); border:1px solid var(--grid-line-strong); padding:5px 9px; border-radius:var(--radius); background:#fff; }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-entry{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; margin-bottom:14px; }
+  @media(max-width:600px){ .edu-entry{ grid-template-columns:1fr; } }
+  .edu-degree{ font-size:16.5px; font-weight:600; color:var(--ink); }
+  .edu-school{ font-size:13.5px; color:var(--ink-mid); margin-top:4px; }
+  .edu-detail{ font-size:13px; color:var(--ink-dim); margin-top:10px; line-height:1.6; }
+  .edu-grade{ font-family:var(--mono); text-align:right; min-width:110px; }
+  .edu-grade .g{ font-size:22px; color:var(--copper); font-weight:600; }
+  .edu-grade .l{ font-size:10.5px; color:var(--ink-dim); letter-spacing:0.04em; margin-top:2px; }
+  .note{ font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:12px; background:var(--bg-card); border:1px dashed var(--border); padding:10px 14px; border-radius:var(--radius); }
+
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  @media(max-width:600px){ .split{ grid-template-columns:1fr; } }
+  .mini-panel{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:18px 20px; }
+  .mini-panel h3{ font-family:var(--mono); font-size:11.5px; letter-spacing:0.06em; color:var(--ink-dim); text-transform:uppercase; margin-bottom:10px; }
+  .mini-panel .item{ font-size:13.5px; color:var(--ink-mid); padding:6px 0; border-top:1px solid var(--grid-line); display:flex; justify-content:space-between; gap:10px; }
+  .mini-panel .item:first-of-type{ border-top:none; }
+  .mini-panel .item span.v{ font-family:var(--mono); font-size:12px; color:var(--teal); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:56px 0 70px; }
+  .footer-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:30px; align-items:flex-end; }
+  footer h2{ font-size:clamp(24px,4vw,32px); font-weight:700; max-width:15ch; color:var(--ink); }
+  footer .sub{ color:var(--ink-mid); margin-top:12px; max-width:44ch; font-size:15px; }
+  .foot-meta{ font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:44px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">Arnova</div>
+    <nav class="links">
+      <a href="#about">about</a>
+      <a href="#research">research</a>
+      <a href="#work">work</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="sticky-note">currently: chasing 5G KPIs — and a PhD next</div>
+    <h1 class="name">Arnova Abdullah</h1>
+    <div class="role-line">TELECOMMUNICATIONS ENGINEER · MOOSBURG, GERMANY</div>
+    <p class="summary">
+      I make 5G networks prove themselves — in vineyards, mines, and factory floors — and spend my
+      spare cycles on the research questions fieldwork keeps raising. Formerly a lecturer. Currently
+      chasing signal, and a PhD.
+    </p>
+    <div class="contact-row">
+      <a class="chip" href="mailto:arnova.abdullah19@gmail.com"><span class="k">mail</span>arnova.abdullah19@gmail.com</a>
+      <a class="chip" href="https://www.linkedin.com/in/arnova-abdullah/" target="_blank" rel="noopener"><span class="k">in</span>linkedin.com/in/arnova-abdullah</a>
+      <a class="chip" href="tel:+4915906841563"><span class="k">tel</span>+49 159 0684 1563</a>
+    </div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#about">More about me →</a>
+      <a class="btn btn-ghost" href="Arnova_Abdullah_CV.pdf" download>Download CV</a>
+    </div>
+
+    <div class="doodle-wrap">
+      <svg class="doodle" viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line class="baseline" x1="0" y1="90" x2="900" y2="90"/>
+        <path class="trace" d="M0,90 Q30,88 55,80 T110,55 Q130,35 150,60 T210,90 Q260,92 300,88 T380,40 Q400,20 420,45 T480,90 Q540,94 600,88 T680,60 Q705,42 730,65 T800,90 L900,88"/>
+        <text x="500" y="30" transform="rotate(-2 500 30)">-73dBm midband, not bad today</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p>I started on the other side of the classroom — teaching digital signal processing and network
+      security to undergrads in Bangladesh, back when I'd read far more about spectrum analyzers than
+      I'd actually touched one. That gap is what pulled me into fieldwork: measuring 5G across a steep
+      vineyard in Koblenz, syncing GPS to basebands at a mining site in Aachen, load-testing base
+      stations in Dortmund.</p>
+      <p>Somewhere in that fieldwork, the questions started outlasting the projects — a KPI that didn't
+      behave the way the standard said it should, a sync error that only showed up underground. That's
+      the itch I haven't scratched yet, and it's why <strong>a PhD in wireless communications</strong> is
+      next: I want more room to chase 5G/6G performance, industrial IoT, and network architecture
+      questions all the way down.</p>
+      <div class="focus-tags">
+        <span class="focus-tag">5G/6G performance</span>
+        <span class="focus-tag">Industrial IoT</span>
+        <span class="focus-tag">Network architecture</span>
+      </div>
+    </div>
+    <div class="side-panel">
+      <h3>Off the clock</h3>
+      <div class="off-item"><span class="ic">♪</span><div class="t"><b>Ukulele</b>A much slower signal to tune than a spectrum analyzer.</div></div>
+      <div class="off-item"><span class="ic">✎</span><div class="t"><b>Drawing</b>No KPIs, no dashboards — just a page and whatever's in front of me.</div></div>
+      <div class="off-item"><span class="ic">✦</span><div class="t"><b>Reading</b>Self-help and non-fiction — the other kind of debugging.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">§1</span><h2 class="sec-title">Publication</h2><div class="sec-rule"></div></div>
+    <div class="pub-card">
+      <div class="pub-venue">IEEE WoWMoM 2025 · Fort Worth, Texas</div>
+      <div class="pub-title">A Measurement Study on 5G Performance in Steep Vineyards</div>
+      <div class="pub-authors">Iftikhar A. Saeed, <strong>Arnova Abdullah</strong>, Daniel Schneider, Melanie Reinelt, Simon Pannek, Tim Farnschläder, Hans Frey, Wolfgang Kieß, Michael Wimmer.</div>
+      <div class="pub-meta">
+        <span>26th IEEE Intl. Symposium on a World of Wireless, Mobile and Multimedia Networks</span>
+        <a href="https://doi.org/10.1109/WoWMoM59955.2024.11027024" target="_blank" rel="noopener">DOI: 10.1109/WoWMoM59955.2024.11027024 ↗</a>
+      </div>
+    </div>
+
+    <div class="sec-head" style="margin-top:52px;"><span class="sec-num">§2</span><h2 class="sec-title">Research &amp; side projects</h2><div class="sec-rule"></div></div>
+    <p class="sec-sub" style="margin-top:-18px;">What the curiosity does when there's no client asking for it.</p>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-tag">Mobile · Computer Vision</div>
+        <div class="proj-title">Emotion Detection App</div>
+        <div class="proj-desc">A React Native Android app recognising happy / sad / neutral faces in real time, using a CNN trained with TensorFlow and Wolfram Mathematica feature extraction.</div>
+        <div class="proj-stack"><span>React Native</span><span>TensorFlow</span><span>CNN</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Security · O-RAN</div>
+        <div class="proj-title">Attack Evaluation on Open RAN Simulators</div>
+        <div class="proj-desc">Mapped CVEs to MITRE ATT&amp;CK and ran Atomic Red Team tests against a Kubernetes-based O-RAN real-time RIC.</div>
+        <div class="proj-stack"><span>Atomic Red Team</span><span>Kali Linux</span><span>Kubernetes</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Machine Learning</div>
+        <div class="proj-title">Music Genre Classification</div>
+        <div class="proj-desc">Compared Decision Tree, Random Forest, SVM, and semi-supervised models on Spotify API audio data, reaching 73% accuracy.</div>
+        <div class="proj-stack"><span>scikit-learn</span><span>pandas</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Networking · VoIP</div>
+        <div class="proj-title">SIP Trunk &amp; VoIP Traffic Analysis</div>
+        <div class="proj-desc">Built a LAN/VoIP simulation in Cisco Packet Tracer and dissected SIP, SDP, and RTP flows in Wireshark.</div>
+        <div class="proj-stack"><span>Packet Tracer</span><span>Wireshark</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Signal Processing</div>
+        <div class="proj-title">Stochastic Process Analysis</div>
+        <div class="proj-desc">Simulated a binary symmetric channel, estimated PDFs, and analysed an ideal low-pass filter against discrete-time white noise, in Python.</div>
+        <div class="proj-stack"><span>Python</span><span>NumPy</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-tag">Networking · QoS</div>
+        <div class="proj-title">QoS-to-DSCP Domain Mapping</div>
+        <div class="proj-desc">Designed an enterprise DiffServ domain in Cisco Packet Tracer and validated DSCP mapping and scheduling behaviour.</div>
+        <div class="proj-stack"><span>DiffServ</span><span>Packet Tracer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">§3</span><h2 class="sec-title">Where I've worked</h2><div class="sec-rule"></div></div>
+
+    <div class="log-entry">
+      <div class="log-meta"><span>Aug 2024 — Present · Dortmund, Germany</span><span class="proj">FH Dortmund · EU research consortium</span></div>
+      <div class="log-title">Research Associate</div>
+      <div class="log-org">FH Dortmund, Institute of Computer Science</div>
+      <ul class="log-points">
+        <li>Requirement analysis against 3GPP 5G standards for predictive QoS modelling and resource optimisation.</li>
+        <li>Coordinated integration and testing of private 5G infrastructure, including UE onboarding and LIPA-based local breakout for ultra-low-latency applications.</li>
+        <li>Load-tested 5G base stations and UEs across UL/DL and TDD configurations; benchmarked Open5GS, UERANSIM, and O-RAN RIC concepts.</li>
+      </ul>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-meta"><span>Apr 2024 — Jul 2024 · Koblenz, Germany</span><span class="proj">Project: NoLa</span></div>
+      <div class="log-title">Research Associate</div>
+      <div class="log-org">University of Koblenz, Institute of Computer Science</div>
+      <ul class="log-points">
+        <li>Field-tested a 5G campus network across a steep vineyard, evaluating application-layer KPIs.</li>
+        <li>Presented posters at AgrarWinterTage 2024 (Mainz); results later published at IEEE WoWMoM 2025.</li>
+      </ul>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-meta"><span>Apr 2023 — Mar 2024 · Aachen, Germany</span><span class="proj">Project: 6G-ANNA (BMBF)</span></div>
+      <div class="log-title">Student Assistant</div>
+      <div class="log-org">Fraunhofer Institute for Production Technology IPT</div>
+      <ul class="log-points">
+        <li>Deployed a GPS simulator and SDR to automate time-sync with 5G basebands — improved synchronisation accuracy by 15% at an industrial mining site.</li>
+        <li>Ran a mobile private 5G system across 3 industry fairs with zero downtime.</li>
+        <li>Redesigned industrial 5G traffic data storage, cutting retrieval time by 30%.</li>
+      </ul>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-meta"><span>May 2022 — Mar 2023 · Bonn, Germany</span><span class="proj">Project: 5G CampusOS (BMWK)</span></div>
+      <div class="log-title">Working Student</div>
+      <div class="log-org">brown-iposs GmbH</div>
+      <ul class="log-points">
+        <li>4G/5G walk tests capturing real-world KPIs for 5G Standalone deployment optimisation.</li>
+        <li>Implemented a 5G Location Management Function (LMF) for indoor positioning R&amp;D.</li>
+      </ul>
+    </div>
+
+    <details class="log-entry">
+      <summary>
+        <div class="log-meta"><span>Nov 2019 — Apr 2021 · Dhaka, Bangladesh</span><span class="proj">Faculty</span></div>
+        <div class="log-title">Lecturer — Computer Science &amp; Engineering</div>
+        <div class="log-org">Ahsanullah Institute of Information and Technology (AIICT)</div>
+        <span class="expand-hint">+ show details</span>
+      </summary>
+      <ul class="log-points">
+        <li>Taught Digital Signal Processing, Computer Networks, and Network Security.</li>
+        <li>Supervised 25+ students in coursework and research on wireless communication and network security.</li>
+      </ul>
+    </details>
+
+    <details class="log-entry">
+      <summary>
+        <div class="log-meta"><span>Jul 2018 — Dec 2018 · Khulna, Bangladesh</span><span class="proj">Faculty</span></div>
+        <div class="log-title">Graduate Teaching Assistant — ECE</div>
+        <div class="log-org">Khulna University of Engineering and Technology (KUET)</div>
+        <span class="expand-hint">+ show details</span>
+      </summary>
+      <ul class="log-points">
+        <li>Assisted Digital Communication, Satellite Communication, and RADAR Systems labs.</li>
+        <li>Mentored students in signal-transmission projects.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">§4</span><h2 class="sec-title">Skills &amp; tools</h2><div class="sec-rule"></div></div>
+    <div class="panel-grid">
+      <div class="module">
+        <div class="module-head"><span class="led"></span><h3>Programming &amp; automation</h3></div>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">C / C++</span>
+          <span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Git</span>
+        </div>
+      </div>
+      <div class="module">
+        <div class="module-head"><span class="led"></span><h3>RF &amp; drive-test tools</h3></div>
+        <div class="tag-row">
+          <span class="tag">R&amp;S ROMES4</span><span class="tag">TSME Scanner</span><span class="tag">SwissQual</span>
+          <span class="tag">HackRF SDR</span><span class="tag">Hawkeye</span><span class="tag">Wireshark</span>
+        </div>
+      </div>
+      <div class="module">
+        <div class="module-head"><span class="led"></span><h3>5G core, RAN &amp; UEs</h3></div>
+        <div class="tag-row">
+          <span class="tag">Open5GS</span><span class="tag">OAI</span><span class="tag">O-RAN / RIC</span>
+          <span class="tag">Quectel</span><span class="tag">Teltonika</span><span class="tag">EP5G</span>
+        </div>
+      </div>
+      <div class="module">
+        <div class="module-head"><span class="led"></span><h3>Simulation, security &amp; ops</h3></div>
+        <div class="tag-row">
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Atomic Red Team</span>
+          <span class="tag">scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">Jira</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">§5</span><h2 class="sec-title">Education</h2><div class="sec-rule"></div></div>
+
+    <div class="edu-entry">
+      <div>
+        <div class="edu-degree">M.Sc. Communication Systems and Networks</div>
+        <div class="edu-school">TH Köln, Germany — 2021 – 2024</div>
+        <div class="edu-detail">Thesis: a Python-based benchmarking framework for QoS evaluation of private 5G networks in industrial use cases, validated against 10,000+ real-network samples. Colloquium grade 1.1, overall thesis grade 1.3.</div>
+      </div>
+      <div class="edu-grade"><div class="g">1.4</div><div class="l">FINAL GRADE</div></div>
+    </div>
+
+    <div class="edu-entry">
+      <div>
+        <div class="edu-degree">B.Sc. Electronics and Communication Engineering</div>
+        <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
+        <div class="edu-detail">Dean's List Award (2016 &amp; 2017). University Merit Scholarship, 2014 – 2018.</div>
+      </div>
+      <div class="edu-grade"><div class="g">3 / 60</div><div class="l">CLASS RANK</div></div>
+    </div>
+    <div class="note">Note: rank/CGPA shown as 3rd of 60 (CGPA 1.2) per your most detailed CV; an earlier version listed 2nd of 60 — worth confirming against your transcript.</div>
+
+    <div class="split">
+      <div class="mini-panel">
+        <h3>Certifications</h3>
+        <div class="item">Cisco DevNet Associate <span class="v">Network Automation</span></div>
+        <div class="item">CCNA Routing &amp; Switching <span class="v">OSPF</span></div>
+      </div>
+      <div class="mini-panel">
+        <h3>Languages</h3>
+        <div class="item">English <span class="v">Fluent</span></div>
+        <div class="item">German <span class="v">B1</span></div>
+        <div class="item">Bengali <span class="v">Native</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div>
+        <h2>Say hi, or talk 5G with me.</h2>
+        <p class="sub">Open to roles and collaborations in RF/5G validation, test automation, and industrial network research — and always happy to talk about the PhD hunt.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:arnova.abdullah19@gmail.com">Email me →</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/arnova-abdullah/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="tel:+4915906841563">+49 159 0684 1563</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <span>Arnova Abdullah — Moosburg, Germany</span>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
