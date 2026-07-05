@@ -179,6 +179,17 @@
   .proj-stack{ margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
   .proj-stack span{ font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); border:1px solid var(--grid-line-strong); padding:3px 8px; border-radius:var(--radius); }
 
+  /* ---------- GEO MAP ---------- */
+  .geo-map-wrap{ display:flex; gap:20px; margin-top:16px; flex-wrap:wrap; align-items:flex-start; }
+  .geo-svg{ width:150px; height:200px; flex-shrink:0; }
+  .geo-map-outline{ fill:var(--bg-card); stroke:var(--grid-line-strong); stroke-width:1.5; }
+  .geo-star{ fill:var(--copper); }
+  .geo-num{ font-family:var(--mono); font-size:8px; fill:var(--ink-mid); }
+  .geo-legend{ font-family:var(--mono); font-size:11px; color:var(--ink-mid); columns:2; column-gap:16px; flex:1; min-width:190px; margin:0; padding:0; }
+  .geo-legend li{ list-style:none; margin-bottom:5px; break-inside:avoid; }
+  .geo-legend .n{ color:var(--copper); font-weight:600; margin-right:5px; }
+  .geo-caption{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-dim); margin-top:16px; }
+
   /* ---------- FIELD NOTEBOOK / EXPERIENCE ---------- */
   .log-entry{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:24px 24px 22px; margin-bottom:16px; border-left:3px solid var(--copper-dim); }
   .log-meta{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.03em; }
@@ -246,7 +257,6 @@
   .edu-grade{ font-family:var(--mono); text-align:right; min-width:110px; }
   .edu-grade .g{ font-size:22px; color:var(--copper); font-weight:600; }
   .edu-grade .l{ font-size:10.5px; color:var(--ink-dim); letter-spacing:0.04em; margin-top:2px; }
-  .note{ font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:12px; background:var(--bg-card); border:1px dashed var(--border); padding:10px 14px; border-radius:var(--radius); }
   .award-badge{
     display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px;
     color:#7a4b12; background:#FBEBD3; border:1px solid #E8C784; padding:5px 11px; border-radius:20px;
@@ -420,6 +430,10 @@
         <li>Coordinated integration and testing of private 5G infrastructure, including UE onboarding and LIPA-based local breakout for ultra-low-latency applications.</li>
         <li>Load-tested 5G base stations and UEs across UL/DL and TDD configurations; benchmarked Open5GS, UERANSIM, and O-RAN RIC concepts.</li>
       </ul>
+      <div class="photo-strip">
+        <span class="lightbox-trigger" data-src="img/fh-dortmund.jpg"><img src="img/fh-dortmund.jpg" alt="FH Dortmund team outing" draggable="false"></span>
+        <span class="lightbox-trigger" data-src="img/fh-dortmund1.jpg"><img src="img/fh-dortmund1.jpg" alt="FH Dortmund team outing" draggable="false"></span>
+      </div>
     </div>
 
     <div class="log-entry card-shadow reveal">
@@ -573,13 +587,12 @@
       <div>
         <div class="edu-degree">B.Sc. Electronics and Communication Engineering</div>
         <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
-        <div class="edu-detail">University Merit Scholarship, 2014 – 2018.</div>
+        <div class="edu-detail">University Merit Scholarship, 2014 – 2018. Ranked 3rd of 60 students, CGPA 3.77/4.00.</div>
         <div class="award-badge">Dean's List Award — 2016 &amp; 2017</div>
         <a class="cert-link-inline" href="certificates/Arnova%20Abdullah%20-%20Dens%20Award%20-%20Bachelor.pdf" target="_blank" rel="noopener">View certificate ↗</a>
       </div>
-      <div class="edu-grade"><div class="g">3 / 60</div><div class="l">CLASS RANK</div></div>
+      <div class="edu-grade"><div class="g">1.3</div><div class="l">GERMAN SCALE GRADE</div></div>
     </div>
-    <div class="note">Note: rank/CGPA shown as 3rd of 60 (CGPA 1.2) per your most detailed CV; an earlier version listed 2nd of 60 — worth confirming against your transcript.</div>
 
     <div class="sec-head" style="margin-top:48px;"><span class="sec-num">§6</span><h2 class="sec-title">Certifications</h2><div class="sec-rule"></div></div>
     <p class="sec-sub" style="margin-top:-18px;">Organized by area — more to be added.</p>
@@ -588,12 +601,13 @@
         <div class="module-head"><span class="led"></span><h3>Networking</h3></div>
         <div class="tag-row">
           <span class="tag">CCNA Routing &amp; Switching</span>
+          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%20Cisco%20Networking%20Course.pdf" target="_blank" rel="noopener">Cisco Networking Course</a>
         </div>
       </div>
       <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>Automation &amp; DevOps</h3></div>
         <div class="tag-row">
-          <span class="tag">Cisco DevNet Associate</span>
+          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%20Devnet%20Associate%20%28R-139274%29.pdf" target="_blank" rel="noopener">Cisco DevNet Associate</a>
         </div>
       </div>
       <div class="module card-shadow reveal">
@@ -609,7 +623,9 @@
       </div>
       <div class="module card-shadow reveal">
         <div class="module-head"><span class="led"></span><h3>MATLAB</h3></div>
-        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
+        <div class="tag-row">
+          <a class="tag cert-link" href="certificates/Matlab%20onramp.pdf" target="_blank" rel="noopener">MATLAB Onramp</a>
+        </div>
       </div>
     </div>
 
@@ -618,7 +634,6 @@
         <h3>Languages</h3>
         <div class="item">English <span class="v">Fluent</span></div>
         <div class="item">German (telc B1) <a class="cert-link-inline" href="certificates/telcb1.pdf" target="_blank" rel="noopener">View certificate ↗</a></div>
-        <div class="item">TOEFL <span class="v cert-pending">certificate pending upload</span></div>
         <div class="item">Bengali <span class="v">Native</span></div>
       </div>
     </div>
@@ -632,14 +647,93 @@
       <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Travelling</div>
         <div class="proj-title">Wherever the next fieldwork sends me</div>
-        <div class="proj-desc">Photos coming soon — send me the filenames and I'll drop them in here.</div>
-        <div class="photo-strip" data-placeholder="travel"></div>
+        <div class="proj-desc">Germany, city by city — plus a few stamps further afield.</div>
+        <div class="geo-map-wrap">
+          <svg class="geo-svg" viewBox="0 0 300 400" role="img" aria-label="Map of Germany with cities I've visited marked">
+            <defs>
+              <path id="geoStar" d="M0,-4.5 L1.1,-1.6 L4.3,-1.4 L1.8,0.6 L2.7,3.6 L0,1.9 L-2.7,3.6 L-1.8,0.6 L-4.3,-1.4 L-1.1,-1.6 Z"></path>
+            </defs>
+            <path class="geo-map-outline" d="M82,2 L138,38 L170,31 L201,45 L267,58 L272,88 L280,139 L286,160 L294,201 L288,214 L214,242 L245,333 L228,373 L169,392 L121,386 L56,385 L75,313 L33,301 L9,279 L0,206 L7,165 L43,89 L51,67 L87,61 L96,42 Z"></path>
+            <g transform="translate(133,78)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="4">1</text></g>
+            <g transform="translate(7,220)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="0" y="13" text-anchor="middle">2</text></g>
+            <g transform="translate(35,212)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="-2">3</text></g>
+            <g transform="translate(29,197)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="-4" text-anchor="end">4</text></g>
+            <g transform="translate(40,222)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="9">5</text></g>
+            <g transform="translate(52,182)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="-2">6</text></g>
+            <g transform="translate(37,185)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="-2" text-anchor="end">7</text></g>
+            <g transform="translate(29,186)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="11" text-anchor="end">8</text></g>
+            <g transform="translate(57,159)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="1">9</text></g>
+            <g transform="translate(56,241)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="3">10</text></g>
+            <g transform="translate(25,272)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="3" text-anchor="end">11</text></g>
+            <g transform="translate(42,252)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="7">12</text></g>
+            <g transform="translate(163,344)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="-4">13</text></g>
+            <g transform="translate(184,355)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="5">14</text></g>
+            <g transform="translate(196,338)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="0" y="-8" text-anchor="middle">15</text></g>
+            <g transform="translate(107,323)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="3" text-anchor="end">16</text></g>
+            <g transform="translate(169,389)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="8" y="4">17</text></g>
+            <g transform="translate(107,380)"><use href="#geoStar" class="geo-star"></use><text class="geo-num" x="-8" y="3" text-anchor="end">18</text></g>
+          </svg>
+          <ol class="geo-legend">
+            <li><span class="n">1</span>Hamburg</li>
+            <li><span class="n">2</span>Aachen</li>
+            <li><span class="n">3</span>Cologne</li>
+            <li><span class="n">4</span>Düsseldorf</li>
+            <li><span class="n">5</span>Bonn</li>
+            <li><span class="n">6</span>Dortmund</li>
+            <li><span class="n">7</span>Essen</li>
+            <li><span class="n">8</span>Duisburg</li>
+            <li><span class="n">9</span>Münster</li>
+            <li><span class="n">10</span>Koblenz</li>
+            <li><span class="n">11</span>Trier</li>
+            <li><span class="n">12</span>Cochem</li>
+            <li><span class="n">13</span>Augsburg</li>
+            <li><span class="n">14</span>Munich</li>
+            <li><span class="n">15</span>Moosburg</li>
+            <li><span class="n">16</span>Stuttgart</li>
+            <li><span class="n">17</span>Garmisch-Partenkirchen</li>
+            <li><span class="n">18</span>Konstanz</li>
+          </ol>
+        </div>
+        <div class="geo-caption">Also explored</div>
+        <div class="tag-row" style="margin-top:8px;">
+          <span class="tag">Paris</span>
+          <span class="tag">Rome</span>
+          <span class="tag">Luxembourg</span>
+          <span class="tag">Vienna</span>
+          <span class="tag">Prague</span>
+          <span class="tag">Budapest</span>
+          <span class="tag">Santorini</span>
+          <span class="tag">Barcelona</span>
+          <span class="tag">Zadar</span>
+          <span class="tag">Split</span>
+          <span class="tag">Amalfi</span>
+          <span class="tag">Bruges</span>
+          <span class="tag">Amsterdam</span>
+          <span class="tag">Brussels</span>
+          <span class="tag">Rotterdam</span>
+          <span class="tag">Maastricht</span>
+          <span class="tag">Ostend</span>
+        </div>
+        <div class="photo-strip">
+          <span class="lightbox-trigger" data-src="img/personal_photo.jpeg"><img src="img/personal_photo.jpeg" alt="On the road" draggable="false"></span>
+        </div>
       </div>
       <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Drawing</div>
         <div class="proj-title">No KPIs, no dashboards</div>
-        <div class="proj-desc">Just a page and whatever's in front of me. Sketches coming soon.</div>
-        <div class="photo-strip" data-placeholder="sketches"></div>
+        <div class="proj-desc">Just a page and whatever's in front of me.</div>
+        <div class="photo-strip">
+          <span class="lightbox-trigger" data-src="img/sketch1.jpg"><img src="img/sketch1.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch2.jpg"><img src="img/sketch2.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch3.jpg"><img src="img/sketch3.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch4.jpg"><img src="img/sketch4.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch5.jpg"><img src="img/sketch5.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch6.jpg"><img src="img/sketch6.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch7.jpg"><img src="img/sketch7.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch8.jpg"><img src="img/sketch8.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch9.jpg"><img src="img/sketch9.jpg" alt="Pencil sketch" draggable="false"></span>
+          <span class="lightbox-trigger" data-src="img/sketch-eye.jpg"><img src="img/sketch-eye.jpg" alt="Pencil sketch" draggable="false"></span>
+        </div>
       </div>
       <div class="proj-card card-shadow reveal">
         <div class="proj-tag">Ukulele</div>
