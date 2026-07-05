@@ -39,6 +39,8 @@
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size:28px 28px;
   }
+  .card-shadow{ box-shadow:0 1px 2px rgba(30,43,34,0.04), 0 6px 16px rgba(30,43,34,0.05); transition:box-shadow .18s, transform .18s; }
+  .card-shadow:hover{ box-shadow:0 2px 4px rgba(30,43,34,0.06), 0 10px 24px rgba(30,43,34,0.08); transform:translateY(-1px); }
   a{ color:inherit; }
   ::selection{ background:var(--copper); color:#fff; }
   :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
@@ -56,6 +58,14 @@
 
   /* ---------- HERO ---------- */
   .hero{ padding:70px 0 56px; border-bottom:1px solid var(--border); position:relative; }
+  .hero-grid{ display:grid; grid-template-columns:1fr 220px; gap:40px; align-items:start; }
+  @media(max-width:760px){ .hero-grid{ grid-template-columns:1fr; } }
+  .photo-frame{
+    width:220px; height:220px; border-radius:50%; border:2px dashed var(--grid-line-strong);
+    background:var(--bg-card); display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); text-align:center; padding:16px;
+  }
+  @media(max-width:760px){ .photo-frame{ width:140px; height:140px; margin-top:8px; } }
   .sticky-note{
     display:inline-block; font-family:var(--hand); font-size:20px; color:var(--teal);
     background:#fff; border:1px solid var(--border); padding:8px 16px; border-radius:2px;
@@ -144,7 +154,15 @@
   .module-head .led{ width:7px; height:7px; border-radius:50%; background:var(--teal); }
   .module-head h3{ font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink); }
   .tag-row{ display:flex; flex-wrap:wrap; gap:7px; }
+  .tag.skill-btn{ cursor:pointer; font:inherit; font-family:var(--mono); position:relative; }
+  .tag.skill-btn::after{ content:'⌄'; margin-left:5px; color:var(--copper-dim); }
+  .tag.skill-btn.active{ border-color:var(--copper); color:var(--ink); background:#fff; }
+  .skill-detail{ display:none; margin-top:12px; padding:12px 14px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); font-size:13px; color:var(--ink-mid); line-height:1.55; }
+  .skill-detail.open{ display:block; }
+  .skill-detail a{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); white-space:nowrap; }
   .tag{ font-family:var(--mono); font-size:11.5px; color:var(--ink-mid); border:1px solid var(--grid-line-strong); padding:5px 9px; border-radius:var(--radius); background:#fff; }
+  .tag.placeholder{ color:var(--ink-dim); border-style:dashed; background:transparent; }
+  .cert-pending{ color:var(--ink-dim) !important; font-style:italic; }
 
   /* ---------- EDUCATION ---------- */
   .edu-entry{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; margin-bottom:14px; }
@@ -156,6 +174,12 @@
   .edu-grade .g{ font-size:22px; color:var(--copper); font-weight:600; }
   .edu-grade .l{ font-size:10.5px; color:var(--ink-dim); letter-spacing:0.04em; margin-top:2px; }
   .note{ font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:12px; background:var(--bg-card); border:1px dashed var(--border); padding:10px 14px; border-radius:var(--radius); }
+  .award-badge{
+    display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px;
+    color:#7a4b12; background:#FBEBD3; border:1px solid #E8C784; padding:5px 11px; border-radius:20px;
+    margin-top:10px;
+  }
+  .award-badge::before{ content:'★'; color:var(--copper); }
 
   .split{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
   @media(max-width:600px){ .split{ grid-template-columns:1fr; } }
@@ -189,23 +213,29 @@
 </header>
 
 <section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="sticky-note">currently: chasing 5G KPIs — and a PhD next</div>
+      <h1 class="name">Arnova Abdullah</h1>
+      <div class="role-line">TELECOMMUNICATIONS ENGINEER · MOOSBURG, GERMANY</div>
+      <p class="summary">
+        I make 5G networks prove themselves — in vineyards, mines, and factory floors — and spend my
+        spare cycles on the research questions fieldwork keeps raising. Formerly a lecturer. Currently
+        chasing signal, and a PhD.
+      </p>
+      <div class="contact-row">
+        <a class="chip" href="mailto:arnova.abdullah19@gmail.com"><span class="k">mail</span>arnova.abdullah19@gmail.com</a>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#about">More about me →</a>
+        <a class="btn btn-ghost" href="Arnova_Abdullah_CV.pdf" download>Download CV</a>
+      </div>
+    </div>
+    <div class="photo-frame" aria-hidden="true">
+      <span>photo coming soon</span>
+    </div>
+  </div>
   <div class="wrap">
-    <div class="sticky-note">currently: chasing 5G KPIs — and a PhD next</div>
-    <h1 class="name">Arnova Abdullah</h1>
-    <div class="role-line">TELECOMMUNICATIONS ENGINEER · MOOSBURG, GERMANY</div>
-    <p class="summary">
-      I make 5G networks prove themselves — in vineyards, mines, and factory floors — and spend my
-      spare cycles on the research questions fieldwork keeps raising. Formerly a lecturer. Currently
-      chasing signal, and a PhD.
-    </p>
-    <div class="contact-row">
-      <a class="chip" href="mailto:arnova.abdullah19@gmail.com"><span class="k">mail</span>arnova.abdullah19@gmail.com</a>
-    </div>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="#about">More about me →</a>
-      <a class="btn btn-ghost" href="Arnova_Abdullah_CV.pdf" download>Download CV</a>
-    </div>
-
     <div class="doodle-wrap">
       <svg class="doodle" viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <line class="baseline" x1="0" y1="90" x2="900" y2="90"/>
@@ -235,7 +265,7 @@
         <span class="focus-tag">Network architecture</span>
       </div>
     </div>
-    <div class="side-panel">
+    <div class="side-panel card-shadow">
       <h3>Off the clock</h3>
       <div class="off-item"><span class="ic">♪</span><div class="t"><b>Ukulele</b>A much slower signal to tune than a spectrum analyzer.</div></div>
       <div class="off-item"><span class="ic">✎</span><div class="t"><b>Drawing</b>No KPIs, no dashboards — just a page and whatever's in front of me.</div></div>
@@ -247,7 +277,7 @@
 <section id="research">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§1</span><h2 class="sec-title">Publication</h2><div class="sec-rule"></div></div>
-    <div class="pub-card">
+    <div class="pub-card card-shadow">
       <div class="pub-venue">IEEE WoWMoM 2025 · Fort Worth, Texas</div>
       <div class="pub-title">A Measurement Study on 5G Performance in Steep Vineyards</div>
       <div class="pub-authors">Iftikhar A. Saeed, <strong>Arnova Abdullah</strong>, Daniel Schneider, Melanie Reinelt, Simon Pannek, Tim Farnschläder, Hans Frey, Wolfgang Kieß, Michael Wimmer.</div>
@@ -260,37 +290,37 @@
     <div class="sec-head" style="margin-top:52px;"><span class="sec-num">§2</span><h2 class="sec-title">Research &amp; side projects</h2><div class="sec-rule"></div></div>
     <p class="sec-sub" style="margin-top:-18px;">What the curiosity does when there's no client asking for it.</p>
     <div class="proj-grid">
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Mobile · Computer Vision</div>
         <div class="proj-title">Emotion Detection App</div>
         <div class="proj-desc">A React Native Android app recognising happy / sad / neutral faces in real time, using a CNN trained with TensorFlow and Wolfram Mathematica feature extraction.</div>
         <div class="proj-stack"><span>React Native</span><span>TensorFlow</span><span>CNN</span></div>
       </div>
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Security · O-RAN</div>
         <div class="proj-title">Attack Evaluation on Open RAN Simulators</div>
         <div class="proj-desc">Mapped CVEs to MITRE ATT&amp;CK and ran Atomic Red Team tests against a Kubernetes-based O-RAN real-time RIC.</div>
         <div class="proj-stack"><span>Atomic Red Team</span><span>Kali Linux</span><span>Kubernetes</span></div>
       </div>
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Machine Learning</div>
         <div class="proj-title">Music Genre Classification</div>
         <div class="proj-desc">Compared Decision Tree, Random Forest, SVM, and semi-supervised models on Spotify API audio data, reaching 73% accuracy.</div>
         <div class="proj-stack"><span>scikit-learn</span><span>pandas</span></div>
       </div>
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Networking · VoIP</div>
         <div class="proj-title">SIP Trunk &amp; VoIP Traffic Analysis</div>
         <div class="proj-desc">Built a LAN/VoIP simulation in Cisco Packet Tracer and dissected SIP, SDP, and RTP flows in Wireshark.</div>
         <div class="proj-stack"><span>Packet Tracer</span><span>Wireshark</span></div>
       </div>
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Signal Processing</div>
         <div class="proj-title">Stochastic Process Analysis</div>
         <div class="proj-desc">Simulated a binary symmetric channel, estimated PDFs, and analysed an ideal low-pass filter against discrete-time white noise, in Python.</div>
         <div class="proj-stack"><span>Python</span><span>NumPy</span></div>
       </div>
-      <div class="proj-card">
+      <div class="proj-card card-shadow">
         <div class="proj-tag">Networking · QoS</div>
         <div class="proj-title">QoS-to-DSCP Domain Mapping</div>
         <div class="proj-desc">Designed an enterprise DiffServ domain in Cisco Packet Tracer and validated DSCP mapping and scheduling behaviour.</div>
@@ -304,7 +334,7 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§3</span><h2 class="sec-title">Where I've worked</h2><div class="sec-rule"></div></div>
 
-    <div class="log-entry">
+    <div class="log-entry card-shadow">
       <div class="log-meta"><span>Aug 2024 — Present · Dortmund, Germany</span><span class="proj">FH Dortmund · EU research consortium</span></div>
       <div class="log-title">Research Associate</div>
       <div class="log-org">FH Dortmund, Institute of Computer Science</div>
@@ -315,7 +345,7 @@
       </ul>
     </div>
 
-    <div class="log-entry">
+    <div class="log-entry card-shadow">
       <div class="log-meta"><span>Apr 2024 — Jul 2024 · Koblenz, Germany</span><span class="proj">Project: NoLa</span></div>
       <div class="log-title">Research Associate</div>
       <div class="log-org">University of Koblenz, Institute of Computer Science</div>
@@ -325,7 +355,7 @@
       </ul>
     </div>
 
-    <div class="log-entry">
+    <div class="log-entry card-shadow">
       <div class="log-meta"><span>Apr 2023 — Mar 2024 · Aachen, Germany</span><span class="proj">Project: 6G-ANNA (BMBF)</span></div>
       <div class="log-title">Student Assistant</div>
       <div class="log-org">Fraunhofer Institute for Production Technology IPT</div>
@@ -336,7 +366,7 @@
       </ul>
     </div>
 
-    <div class="log-entry">
+    <div class="log-entry card-shadow">
       <div class="log-meta"><span>May 2022 — Mar 2023 · Bonn, Germany</span><span class="proj">Project: 5G CampusOS (BMWK)</span></div>
       <div class="log-title">Working Student</div>
       <div class="log-org">brown-iposs GmbH</div>
@@ -346,7 +376,7 @@
       </ul>
     </div>
 
-    <details class="log-entry">
+    <details class="log-entry card-shadow">
       <summary>
         <div class="log-meta"><span>Nov 2019 — Apr 2021 · Dhaka, Bangladesh</span><span class="proj">Faculty</span></div>
         <div class="log-title">Lecturer — Computer Science &amp; Engineering</div>
@@ -359,7 +389,7 @@
       </ul>
     </details>
 
-    <details class="log-entry">
+    <details class="log-entry card-shadow">
       <summary>
         <div class="log-meta"><span>Jul 2018 — Dec 2018 · Khulna, Bangladesh</span><span class="proj">Faculty</span></div>
         <div class="log-title">Graduate Teaching Assistant — ECE</div>
@@ -378,33 +408,45 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§4</span><h2 class="sec-title">Skills &amp; tools</h2><div class="sec-rule"></div></div>
     <div class="panel-grid">
-      <div class="module">
+      <div class="module card-shadow">
         <div class="module-head"><span class="led"></span><h3>Programming &amp; automation</h3></div>
         <div class="tag-row">
-          <span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">C / C++</span>
+          <button type="button" class="tag skill-btn" data-detail="Used to build KPI extraction, log parsing, and regression-style validation pipelines at FH Dortmund, plus the 5G QoS benchmarking framework in my Master's thesis (10,000+ samples).">Python</button>
+          <span class="tag">MATLAB</span><span class="tag">C / C++</span>
           <span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Git</span>
         </div>
+        <div class="skill-detail"></div>
       </div>
-      <div class="module">
+      <div class="module card-shadow">
         <div class="module-head"><span class="led"></span><h3>RF &amp; drive-test tools</h3></div>
         <div class="tag-row">
-          <span class="tag">R&amp;S ROMES4</span><span class="tag">TSME Scanner</span><span class="tag">SwissQual</span>
-          <span class="tag">HackRF SDR</span><span class="tag">Hawkeye</span><span class="tag">Wireshark</span>
+          <button type="button" class="tag skill-btn" data-detail="Used for 4G/5G walk tests capturing real-world KPIs at brown-iposs, and for field-testing the 5G campus network across the Koblenz vineyard (NoLa project).">R&amp;S ROMES4</button>
+          <span class="tag">TSME Scanner</span><span class="tag">SwissQual</span>
+          <button type="button" class="tag skill-btn" data-detail="Paired with the CLAW GPS simulator at Fraunhofer IPT to auto-sync 5G basebands — improved sync accuracy by 15% at an industrial mining site.">HackRF SDR</button>
+          <span class="tag">Hawkeye</span>
+          <button type="button" class="tag skill-btn" data-detail="Used to trace protocol failures across PHY/MAC/RLC/PDCP/RRC/NAS layers at FH Dortmund, and to dissect SIP/SDP/RTP flows in a VoIP traffic-analysis side project.">Wireshark</button>
         </div>
+        <div class="skill-detail"></div>
       </div>
-      <div class="module">
+      <div class="module card-shadow">
         <div class="module-head"><span class="led"></span><h3>5G core, RAN &amp; UEs</h3></div>
         <div class="tag-row">
-          <span class="tag">Open5GS</span><span class="tag">OAI</span><span class="tag">O-RAN / RIC</span>
+          <span class="tag">Open5GS</span><span class="tag">OAI</span>
+          <button type="button" class="tag skill-btn" data-detail="Evaluated RIC concepts (xApps/rApps) at FH Dortmund, and separately ran an attack evaluation against a Kubernetes-based O-RAN real-time RIC, mapping CVEs to MITRE ATT&amp;CK.">O-RAN / RIC</button>
           <span class="tag">Quectel</span><span class="tag">Teltonika</span><span class="tag">EP5G</span>
         </div>
+        <div class="skill-detail"></div>
       </div>
-      <div class="module">
+      <div class="module card-shadow">
         <div class="module-head"><span class="led"></span><h3>Simulation, security &amp; ops</h3></div>
         <div class="tag-row">
-          <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Atomic Red Team</span>
-          <span class="tag">scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">Jira</span>
+          <button type="button" class="tag skill-btn" data-detail="Used to run the Kubernetes-based O-RAN real-time RIC targeted in an attack-evaluation side project, mapping CVEs to MITRE ATT&amp;CK with Atomic Red Team.">Docker / Kubernetes</button>
+          <span class="tag">Atomic Red Team</span>
+          <button type="button" class="tag skill-btn" data-detail="Used to compare Decision Tree, Random Forest, SVM, and semi-supervised models for a music genre classification side project on Spotify API data — 73% accuracy.">scikit-learn</button>
+          <button type="button" class="tag skill-btn" data-detail="Used to train a CNN for a React Native emotion-detection Android app, recognising happy / sad / neutral faces in real time.">TensorFlow</button>
+          <span class="tag">Jira</span>
         </div>
+        <div class="skill-detail"></div>
       </div>
     </div>
   </div>
@@ -414,35 +456,62 @@
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">§5</span><h2 class="sec-title">Education</h2><div class="sec-rule"></div></div>
 
-    <div class="edu-entry">
+    <div class="edu-entry card-shadow">
       <div>
         <div class="edu-degree">M.Sc. Communication Systems and Networks</div>
         <div class="edu-school">TH Köln, Germany — 2021 – 2024</div>
         <div class="edu-detail">Thesis: a Python-based benchmarking framework for QoS evaluation of private 5G networks in industrial use cases, validated against 10,000+ real-network samples. Colloquium grade 1.1, overall thesis grade 1.3.</div>
+        <div class="award-badge">Jahrgangsbeste — Top Graduate of the Year</div>
       </div>
       <div class="edu-grade"><div class="g">1.4</div><div class="l">FINAL GRADE</div></div>
     </div>
 
-    <div class="edu-entry">
+    <div class="edu-entry card-shadow">
       <div>
         <div class="edu-degree">B.Sc. Electronics and Communication Engineering</div>
         <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
-        <div class="edu-detail">Dean's List Award (2016 &amp; 2017). University Merit Scholarship, 2014 – 2018.</div>
+        <div class="edu-detail">University Merit Scholarship, 2014 – 2018.</div>
+        <div class="award-badge">Dean's List Award — 2016 &amp; 2017</div>
       </div>
       <div class="edu-grade"><div class="g">3 / 60</div><div class="l">CLASS RANK</div></div>
     </div>
     <div class="note">Note: rank/CGPA shown as 3rd of 60 (CGPA 1.2) per your most detailed CV; an earlier version listed 2nd of 60 — worth confirming against your transcript.</div>
 
-    <div class="split">
-      <div class="mini-panel">
-        <h3>Certifications</h3>
-        <div class="item">Cisco DevNet Associate <span class="v">Network Automation</span></div>
-        <div class="item">CCNA Routing &amp; Switching <span class="v">OSPF</span></div>
+    <div class="sec-head" style="margin-top:48px;"><span class="sec-num">§6</span><h2 class="sec-title">Certifications</h2><div class="sec-rule"></div></div>
+    <p class="sec-sub" style="margin-top:-18px;">Organized by area — more to be added.</p>
+    <div class="panel-grid">
+      <div class="module card-shadow">
+        <div class="module-head"><span class="led"></span><h3>Networking</h3></div>
+        <div class="tag-row">
+          <span class="tag">CCNA Routing &amp; Switching</span>
+        </div>
       </div>
-      <div class="mini-panel">
+      <div class="module card-shadow">
+        <div class="module-head"><span class="led"></span><h3>Automation &amp; DevOps</h3></div>
+        <div class="tag-row">
+          <span class="tag">Cisco DevNet Associate</span>
+        </div>
+      </div>
+      <div class="module card-shadow">
+        <div class="module-head"><span class="led"></span><h3>Security</h3></div>
+        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
+      </div>
+      <div class="module card-shadow">
+        <div class="module-head"><span class="led"></span><h3>5G</h3></div>
+        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
+      </div>
+      <div class="module card-shadow">
+        <div class="module-head"><span class="led"></span><h3>MATLAB</h3></div>
+        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:16px;">
+      <div class="mini-panel card-shadow">
         <h3>Languages</h3>
         <div class="item">English <span class="v">Fluent</span></div>
-        <div class="item">German <span class="v">B1</span></div>
+        <div class="item">German (telc B1) <span class="v cert-pending">certificate pending upload</span></div>
+        <div class="item">TOEFL <span class="v cert-pending">certificate pending upload</span></div>
         <div class="item">Bengali <span class="v">Native</span></div>
       </div>
     </div>
@@ -457,8 +526,6 @@
         <p class="sub">Open to roles and collaborations in RF/5G validation, test automation, and industrial network research — and always happy to talk about the PhD hunt.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="mailto:arnova.abdullah19@gmail.com">Email me →</a>
-          
-          
         </div>
       </div>
     </div>
@@ -469,5 +536,23 @@
   </div>
 </footer>
 
+<script>
+  document.querySelectorAll('.skill-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = btn.closest('.module').querySelector('.skill-detail');
+      var wasOpenForThis = panel.classList.contains('open') && panel.dataset.owner === btn.textContent.trim();
+      document.querySelectorAll('.skill-btn.active').forEach(function(b){ if(b!==btn) b.classList.remove('active'); });
+      if(wasOpenForThis){
+        panel.classList.remove('open');
+        btn.classList.remove('active');
+        return;
+      }
+      panel.innerHTML = btn.dataset.detail;
+      panel.dataset.owner = btn.textContent.trim();
+      panel.classList.add('open');
+      btn.classList.add('active');
+    });
+  });
+</script>
 </body>
 </html>
