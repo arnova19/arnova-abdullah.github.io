@@ -3,794 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arnova Abdullah</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital@0;1&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<title>Arnova Abdullah | Field Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=Caveat:wght@500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#EEF2EA;
-    --bg-card:rgba(255,255,255,0.5);
-    --grid-line:#D3DECB;
-    --grid-line-strong:#B9C8AF;
-    --ink:#1E2B22;
-    --ink-mid:#4B5B4E;
-    --ink-dim:#7C8B7C;
-    --copper:#B15A28;
-    --copper-dim:#C98252;
-    --teal:#2B6270;
-    --teal-dim:#6C9AA3;
-    --border:#CBD6C2;
-    --radius:3px;
-    --sans:'IBM Plex Sans', system-ui, sans-serif;
-    --mono:'IBM Plex Mono','SFMono-Regular', Menlo, monospace;
-    --serif:'IBM Plex Serif', Georgia, serif;
-    --hand:'Caveat', cursive;
+  :root {
+    --bg: #F9F9F7;
+    --ink: #1A1D1A;
+    --ink-mid: #555;
+    --copper: #A0522D;
+    --teal: #2F4F4F;
+    --border: #E0E0DE;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'IBM Plex Serif', serif;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:
-      radial-gradient(1100px circle at 12% -8%, rgba(43,98,112,0.10), transparent 55%),
-      radial-gradient(900px circle at 88% 6%, rgba(177,90,40,0.09), transparent 50%),
-      radial-gradient(800px circle at 50% 100%, rgba(43,98,112,0.06), transparent 60%),
-      linear-gradient(180deg, #F9FAF7 0%, #F1F3EE 55%, #EEF1EC 100%);
-    background-attachment:fixed;
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.55;
-  }
-  .card-shadow{
-    box-shadow:0 1px 2px rgba(30,43,34,0.04), 0 6px 16px rgba(30,43,34,0.05);
-    transition:box-shadow .18s, transform .18s;
-    backdrop-filter:blur(14px) saturate(140%);
-    -webkit-backdrop-filter:blur(14px) saturate(140%);
-    border:1px solid rgba(255,255,255,0.6);
-  }
-  .card-shadow:hover{ box-shadow:0 4px 10px rgba(30,43,34,0.08), 0 14px 32px rgba(30,43,34,0.10); transform:translateY(-3px); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; padding: 0 20px; }
+  .wrap { max-width: 800px; margin: 0 auto; }
+  
+  /* Header */
+  header { padding: 40px 0; display: flex; justify-content: space-between; align-items: baseline; }
+  .logo { font-family: var(--serif); font-weight: 600; font-size: 1.5rem; }
+  nav a { margin-left: 20px; text-decoration: none; color: var(--ink-mid); font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; }
 
-  /* ---------- SCROLL PROGRESS ---------- */
-  .scroll-progress{ position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--copper),var(--teal)); width:0%; z-index:100; transition:width .1s linear; }
+  /* Hero */
+  .hero { padding: 80px 0; }
+  h1 { font-family: var(--serif); font-size: 3rem; margin-bottom: 20px; line-height: 1.1; }
+  .bio { font-size: 1.25rem; color: var(--ink-mid); max-width: 60ch; }
+  
+  /* Field Notes (Replaces Work) */
+  section { padding: 60px 0; border-top: 1px solid var(--border); }
+  h2 { font-family: var(--serif); font-size: 1.8rem; margin-bottom: 40px; }
+  .entry { margin-bottom: 60px; }
+  .entry-meta { font-family: var(--mono); font-size: 0.85rem; color: var(--copper); margin-bottom: 10px; text-transform: uppercase; }
+  .entry-title { font-size: 1.5rem; margin-bottom: 15px; }
+  .entry-body { color: var(--ink-mid); }
 
-  /* ---------- REVEAL ON SCROLL ---------- */
-  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .65s cubic-bezier(.2,.7,.3,1), transform .65s cubic-bezier(.2,.7,.3,1); }
-  .reveal.visible{ opacity:1; transform:none; }
-
-  /* ---------- GRADIENT NAME ---------- */
-  h1.name{
-    background:linear-gradient(100deg, var(--ink) 35%, var(--copper) 65%, var(--teal) 100%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    background-size:180% 100%; animation:name-sheen 6s ease-in-out infinite alternate, hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .08s both;
-  }
-  .role-line{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .18s both; }
-  .summary{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .28s both; }
-  .contact-row{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .38s both; }
-  .cta-row{ animation:hero-in-plain .7s cubic-bezier(.2,.7,.3,1) .48s both; }
-  @keyframes name-sheen{ 0%{ background-position:0% 50%; } 100%{ background-position:100% 50%; } }
-  @media (prefers-reduced-motion: reduce){
-    h1.name, .role-line, .summary, .contact-row, .cta-row, .photo-frame, .sticky-note{ animation:none !important; }
-  }
-  a{ color:inherit; }
-  ::selection{ background:var(--copper); color:#fff; }
-  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
-  .wrap{ max-width:1000px; margin:0 auto; padding:0 28px; }
-  .narrow{ max-width:700px; }
-
-  /* ---------- NAV ---------- */
-  header.nav{ position:sticky; top:0; z-index:50; background:rgba(238,242,234,0.9); backdrop-filter:blur(6px); border-bottom:1px solid var(--border); }
-  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1000px; margin:0 auto; }
-  .logo{ font-family:var(--hand); font-weight:600; font-size:22px; color:var(--copper); }
-  nav.links{ display:flex; gap:22px; font-family:var(--mono); font-size:12px; letter-spacing:0.04em; }
-  nav.links a{ text-decoration:none; color:var(--ink-mid); position:relative; padding:4px 0; }
-  nav.links a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--copper); transition:width .2s ease; }
-  nav.links a:hover{ color:var(--ink); }
-  nav.links a:hover::after{ width:100%; }
-  nav.links a.active{ color:var(--ink); }
-  nav.links a.active::after{ width:100%; }
-  @media(max-width:760px){ nav.links{ display:none; } }
-
-  /* ---------- HERO ---------- */
-  .hero{ padding:70px 0 56px; border-bottom:1px solid var(--border); position:relative; }
-  .hero-grid{ display:grid; grid-template-columns:1fr 220px; gap:40px; align-items:start; }
-  @media(max-width:760px){ .hero-grid{ grid-template-columns:1fr; } }
-  .photo-frame{
-    width:220px; height:220px; border-radius:50%; border:2px dashed var(--grid-line-strong);
-    background:var(--bg-card); display:flex; align-items:center; justify-content:center;
-    font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); text-align:center; padding:16px;
-    position:relative; z-index:1; animation:photo-float 5s ease-in-out infinite, hero-in-plain .8s cubic-bezier(.2,.7,.3,1) .2s both;
-  }
-  .photo-frame::before{
-    content:''; position:absolute; inset:-22px; z-index:-1; border-radius:50%;
-    background:radial-gradient(circle, rgba(177,90,40,0.18), rgba(43,98,112,0.12) 60%, transparent 75%);
-    filter:blur(6px);
-  }
-  @keyframes photo-float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
-  .photo-frame img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
-  @media(max-width:760px){ .photo-frame{ width:140px; height:140px; margin-top:8px; } }
-  .sticky-note{
-    display:inline-block; font-family:var(--hand); font-size:20px; color:var(--teal);
-    background:#fff; border:1px solid var(--border); padding:8px 16px; border-radius:2px;
-    transform:rotate(-2deg); box-shadow:2px 3px 0 var(--grid-line-strong); margin-bottom:22px;
-    animation:hero-in .7s cubic-bezier(.2,.7,.3,1) both;
-  }
-  @keyframes hero-in{ from{ opacity:0; transform:translateY(14px) rotate(-2deg); } to{ opacity:1; transform:translateY(0) rotate(-2deg); } }
-  @keyframes hero-in-plain{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
-  h1.name{ font-size:clamp(36px,6.5vw,60px); font-weight:700; letter-spacing:-0.01em; line-height:1.05; }
-  .role-line{ font-family:var(--mono); font-size:clamp(13px,2vw,15.5px); color:var(--copper); margin-top:14px; letter-spacing:0.02em; }
-  .summary{ max-width:62ch; color:var(--ink-mid); font-size:16.5px; margin-top:20px; }
-  .contact-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
-  .chip{ font-family:var(--mono); font-size:12.5px; color:var(--ink-mid); border:1px solid var(--border); background:var(--bg-card); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:7px 12px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:border-color .15s, color .15s; }
-  .chip:hover{ border-color:var(--copper); color:var(--ink); }
-  .chip .k{ color:var(--copper-dim); }
-  .cta-row{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
-  .btn{ font-family:var(--mono); font-size:13px; letter-spacing:0.03em; padding:11px 18px; border-radius:var(--radius); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:all .2s cubic-bezier(.2,.7,.3,1); }
-  .btn-primary{ background:var(--copper); color:#fff; font-weight:600; box-shadow:0 2px 8px rgba(177,90,40,0.25); }
-  .btn-primary:hover{ background:#9c4a1f; transform:translateY(-2px); box-shadow:0 6px 16px rgba(177,90,40,0.35); }
-  .btn-primary:hover span.arrow{ transform:translateX(4px); }
-  .btn span.arrow{ display:inline-block; transition:transform .25s ease; }
-  .btn-ghost{ border:1px solid var(--border); color:var(--ink-mid); background:var(--bg-card); }
-  .btn-ghost:hover{ border-color:var(--teal); color:var(--ink); transform:translateY(-2px); box-shadow:0 4px 12px rgba(30,43,34,0.08); }
-
-  .doodle-wrap{ margin-top:44px; }
-  .doodle text{ font-family:var(--hand); font-size:19px; fill:var(--teal); }
-  .doodle .trace{ fill:none; stroke:var(--copper); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .doodle .baseline{ stroke:var(--grid-line-strong); stroke-width:1; stroke-dasharray:3 4; }
-
-  /* ---------- ABOUT / STORY ---------- */
-  .about{ padding:64px 0; border-bottom:1px solid var(--border); }
-  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:48px; }
-  @media(max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
-  .about p{ font-size:16px; color:var(--ink-mid); margin-bottom:16px; max-width:56ch; }
-  .about strong{ color:var(--ink); }
-  .focus-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
-  .focus-tag{ font-family:var(--mono); font-size:12px; color:var(--teal); border:1px solid var(--teal-dim); padding:6px 12px; border-radius:var(--radius); background:var(--bg-card); }
-  .side-panel{ background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; }
-  .side-panel h3{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-dim); margin-bottom:14px; }
-  .off-item{ display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--grid-line); }
-  .off-item:first-child{ border-top:none; }
-  .off-item .ic{ font-family:var(--hand); font-size:22px; color:var(--copper); min-width:28px; }
-  .off-item .t{ font-size:13.5px; color:var(--ink-mid); line-height:1.5; }
-  .off-item .t b{ display:block; color:var(--ink); font-size:14.5px; font-family:var(--sans); font-weight:600; }
-  .side-panel-link{ display:inline-block; margin-top:14px; font-family:var(--mono); font-size:12px; color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); }
-
-  /* ---------- SECTION SHELL ---------- */
-  section{ padding:64px 0; border-bottom:1px solid var(--border); }
-  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:32px; }
-  .sec-num{ font-family:var(--hand); color:var(--copper); font-size:20px; }
-  h2.sec-title{ font-size:clamp(22px,3vw,27px); font-weight:600; letter-spacing:-0.01em; }
-  .sec-sub{ color:var(--ink-mid); font-size:14.5px; margin:-18px 0 30px; max-width:60ch; }
-  .sec-rule{ flex:1; height:1px; background:var(--grid-line-strong); }
-
-  /* ---------- PUBLICATION ---------- */
-  .pub-card{ border:1px solid var(--teal-dim); background:var(--bg-card); border-radius:var(--radius); padding:26px; }
-  .pub-venue{ font-family:var(--mono); font-size:11.5px; color:var(--teal); text-transform:uppercase; letter-spacing:0.05em; }
-  .pub-title{ font-family:var(--serif); font-style:italic; font-size:19px; margin:10px 0 10px; max-width:38ch; color:var(--ink); }
-  .pub-authors{ font-size:13.5px; color:var(--ink-mid); max-width:54ch; }
-  .pub-meta{ margin-top:16px; display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:12px; color:var(--ink-dim); }
-  .pub-meta a{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); }
-
-  /* ---------- PROJECTS ---------- */
-  .proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:24px; }
-  @media(max-width:700px){ .proj-grid{ grid-template-columns:1fr; } }
-  .proj-card{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; }
-  .proj-tag{ font-family:var(--mono); font-size:10.5px; color:var(--copper); text-transform:uppercase; letter-spacing:0.05em; }
-  .proj-title{ font-size:16px; font-weight:600; margin:8px 0 8px; color:var(--ink); }
-  .proj-desc{ font-size:13.5px; color:var(--ink-mid); line-height:1.55; }
-  .proj-stack{ margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
-  .proj-stack span{ font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); border:1px solid var(--grid-line-strong); padding:3px 8px; border-radius:var(--radius); }
-
-  /* ---------- FIELD NOTEBOOK / EXPERIENCE ---------- */
-  .log-entry{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:24px 24px 22px; margin-bottom:16px; border-left:3px solid var(--copper-dim); }
-  .log-meta{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.03em; }
-  .log-meta .proj{ color:var(--teal); }
-  .log-title{ font-size:18px; font-weight:600; margin-bottom:2px; color:var(--ink); }
-  .log-org{ font-size:14px; color:var(--ink-mid); margin-bottom:14px; }
-  .log-points{ list-style:none; display:flex; flex-direction:column; gap:9px; }
-  .log-points li{ font-size:14px; color:var(--ink-mid); padding-left:18px; position:relative; line-height:1.55; }
-  .log-points li::before{ content:'—'; position:absolute; left:0; top:0; color:var(--copper); }
-  .photo-strip{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
-  .photo-strip .lightbox-trigger{ display:block; width:120px; height:88px; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); flex-shrink:0; cursor:pointer; }
-  .photo-strip img, .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease; -webkit-user-select:none; user-select:none; -webkit-user-drag:none; user-drag:none; pointer-events:auto; }
-  .photo-strip .lightbox-trigger:hover img{ transform:scale(1.08); }
-  @media(max-width:600px){ .photo-strip .lightbox-trigger{ width:100px; height:74px; } }
-
-  /* ---------- LIGHTBOX ---------- */
-  .lightbox-overlay{
-    display:none; position:fixed; inset:0; background:rgba(20,28,22,0.88); z-index:200;
-    align-items:center; justify-content:center; padding:40px; backdrop-filter:blur(4px);
-  }
-  .lightbox-overlay.open{ display:flex; }
-  .lightbox-overlay img{
-    max-width:min(90vw,700px); max-height:80vh; border-radius:4px; box-shadow:0 20px 60px rgba(0,0,0,0.4);
-    -webkit-user-select:none; user-select:none; -webkit-user-drag:none; pointer-events:none;
-  }
-  .lightbox-close{
-    position:absolute; top:24px; right:28px; font-family:var(--mono); font-size:13px; color:#fff;
-    background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); padding:8px 14px;
-    border-radius:var(--radius); cursor:pointer;
-  }
-  .lightbox-note{ position:absolute; bottom:24px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.5); }
-  details.log-entry summary{ cursor:pointer; list-style:none; }
-  details.log-entry summary::-webkit-details-marker{ display:none; }
-  details.log-entry summary .expand-hint{ font-family:var(--mono); font-size:11.5px; color:var(--teal); margin-top:10px; display:inline-block; }
-  details.log-entry[open] summary .expand-hint{ display:none; }
-
-  /* ---------- SKILLS ---------- */
-  .panel-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
-  @media(max-width:700px){ .panel-grid{ grid-template-columns:1fr; } }
-  .module{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:20px 20px 18px; }
-  .module-head{ display:flex; align-items:center; gap:9px; margin-bottom:13px; }
-  .module-head .led{ width:7px; height:7px; border-radius:50%; background:var(--teal); }
-  .module-head h3{ font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink); }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:7px; }
-  .tag.skill-btn{ cursor:pointer; font:inherit; font-family:var(--mono); position:relative; }
-  .tag.skill-btn::after{ content:'⌄'; margin-left:5px; color:var(--copper-dim); }
-  .tag.skill-btn.active{ border-color:var(--copper); color:var(--ink); background:#fff; }
-  .skill-detail{ display:none; margin-top:12px; padding:12px 14px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); font-size:13px; color:var(--ink-mid); line-height:1.55; }
-  .skill-detail.open{ display:block; }
-  .skill-detail a{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); white-space:nowrap; }
-  .tag{ font-family:var(--mono); font-size:11.5px; color:var(--ink-mid); border:1px solid var(--grid-line-strong); padding:5px 9px; border-radius:var(--radius); background:#fff; }
-  .tag.placeholder{ color:var(--ink-dim); border-style:dashed; background:transparent; }
-  .cert-pending{ color:var(--ink-dim) !important; font-style:italic; }
-  a.tag.cert-link{ text-decoration:none; display:inline-flex; align-items:center; gap:5px; transition:border-color .15s, color .15s; }
-  a.tag.cert-link:hover{ border-color:var(--copper); color:var(--ink); }
-  a.tag.cert-link::after{ content:'↗'; color:var(--copper-dim); }
-  a.cert-link-inline{ color:var(--copper); text-decoration:none; border-bottom:1px dotted var(--copper-dim); font-family:var(--mono); font-size:12px; white-space:nowrap; margin-left:10px; }
-
-  /* ---------- EDUCATION ---------- */
-  .edu-entry{ display:grid; grid-template-columns:1fr auto; gap:20px; align-items:start; border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:22px; margin-bottom:14px; }
-  @media(max-width:600px){ .edu-entry{ grid-template-columns:1fr; } }
-  .edu-degree{ font-size:16.5px; font-weight:600; color:var(--ink); }
-  .edu-school{ font-size:13.5px; color:var(--ink-mid); margin-top:4px; }
-  .edu-detail{ font-size:13px; color:var(--ink-dim); margin-top:10px; line-height:1.6; }
-  .edu-grade{ font-family:var(--mono); text-align:right; min-width:110px; }
-  .edu-grade .g{ font-size:22px; color:var(--copper); font-weight:600; }
-  .edu-grade .l{ font-size:10.5px; color:var(--ink-dim); letter-spacing:0.04em; margin-top:2px; }
-  .award-badge{
-    display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11.5px;
-    color:#7a4b12; background:#FBEBD3; border:1px solid #E8C784; padding:5px 11px; border-radius:20px;
-    margin-top:10px;
-  }
-  .award-badge::before{ content:'★'; color:var(--copper); }
-
-  .split{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
-  @media(max-width:600px){ .split{ grid-template-columns:1fr; } }
-  .mini-panel{ border:1px solid var(--border); background:var(--bg-card); border-radius:var(--radius); padding:18px 20px; }
-  .mini-panel h3{ font-family:var(--mono); font-size:11.5px; letter-spacing:0.06em; color:var(--ink-dim); text-transform:uppercase; margin-bottom:10px; }
-  .mini-panel .item{ font-size:13.5px; color:var(--ink-mid); padding:6px 0; border-top:1px solid var(--grid-line); display:flex; justify-content:space-between; gap:10px; }
-  .mini-panel .item:first-of-type{ border-top:none; }
-  .mini-panel .item span.v{ font-family:var(--mono); font-size:12px; color:var(--teal); }
-
-  /* ---------- FOOTER ---------- */
-  footer{ padding:56px 0 70px; }
-  .footer-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:30px; align-items:flex-end; }
-  footer h2{ font-size:clamp(24px,4vw,32px); font-weight:700; max-width:15ch; color:var(--ink); }
-  footer .sub{ color:var(--ink-mid); margin-top:12px; max-width:44ch; font-size:15px; }
-  .foot-meta{ font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-top:44px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  /* Journal style blocks */
+  .side-note { background: #F0F0EE; padding: 20px; border-left: 4px solid var(--teal); font-style: italic; font-family: var(--serif); }
+  
+  footer { padding: 80px 0; color: var(--ink-mid); font-family: var(--mono); font-size: 0.8rem; }
 </style>
 </head>
 <body>
-<div class="scroll-progress" id="scrollProgress"></div>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="logo">Arnova</div>
-    <nav class="links">
-      <a href="#about">about</a>
-      <a href="#research">research</a>
-      <a href="#work">work</a>
-      <a href="#skills">skills</a>
-      <a href="#beyond">life</a>
-      <a href="#contact">contact</a>
+<div class="wrap">
+  <header>
+    <div class="logo">Arnova Abdullah</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#field-notes">Notes</a>
+      <a href="#contact">Contact</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="sticky-note">Hi! Thanks for visiting my website!</div>
-      <h1 class="name">Arnova Abdullah</h1>
-      <div class="role-line">TELECOMMUNICATIONS/CELLULAR (5G/6G) ENGINEER · MOOSBURG, GERMANY</div>
-      <p class="summary">
-        I make 5G networks prove themselves — in vineyards, mines, and factory floors — and spend my
-        spare cycles on the research questions fieldwork keeps raising. Formerly a lecturer. Currently
-        chasing signal KPIs and debugging 5G protocol issues.
+  <section class="hero">
+    <h1>Engineering signal in the wild.</h1>
+    <p class="bio">
+      I bridge the gap between abstract 5G/6G standards and the messy, physical reality of industrial sites. 
+      Currently building and debugging private networks in Germany.
+    </p>
+  </section>
+
+  <section id="field-notes">
+    <h2>Field Notes</h2>
+    
+    <article class="entry">
+      <div class="entry-meta">Aug 2024 — Present · Dortmund</div>
+      <h3 class="entry-title">Research at FH Dortmund</h3>
+      <p class="entry-body">
+        Testing the boundaries of 5G QoS in predictive modeling. It’s one thing to simulate a network, 
+        and another to watch it handle real-world traffic under load-testing conditions.
       </p>
-      <div class="contact-row">
-        <a class="chip" href="mailto:arnova.abdullah19@gmail.com"><span class="k">mail</span>arnova.abdullah19@gmail.com</a>
-      </div>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#about">More about me <span class="arrow">→</span></a>
-      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">Apr 2024 — Jul 2024 · Koblenz</div>
+      <h3 class="entry-title">The Vineyard Study</h3>
+      <p class="entry-body">
+        Measuring 5G performance on a steep vineyard taught me more about propagation and terrain 
+        than a thousand pages of documentation. The signals don't always go where the math says they should.
+      </p>
+    </article>
+
+    <article class="entry">
+      <div class="entry-meta">Apr 2023 — Mar 2024 · Aachen</div>
+      <h3 class="entry-title">Industrial Mining Deployment</h3>
+      <p class="entry-body">
+        Optimizing GPS sync for 5G basebands underground. When you're in a mine, "signal reliability" 
+        isn't just a performance metric—it's the only thing keeping the system alive.
+      </p>
+    </article>
+  </section>
+
+  <section id="about">
+    <h2>Beyond the Spectrum</h2>
+    <div class="side-note">
+      "When I'm not debugging base stations, I'm likely playing the ukulele, drawing, 
+      or searching for the next piece of fiction to debug my own thoughts."
     </div>
-    <div class="photo-frame">
-      <img src="img/photo.jpg" alt="Arnova Abdullah" draggable="false">
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="doodle-wrap">
-      <svg class="doodle" viewBox="0 0 900 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line class="baseline" x1="0" y1="90" x2="900" y2="90"/>
-        <path class="trace" d="M0,90 Q30,88 55,80 T110,55 Q130,35 150,60 T210,90 Q260,92 300,88 T380,40 Q400,20 420,45 T480,90 Q540,94 600,88 T680,60 Q705,42 730,65 T800,90 L900,88"/>
-        <text x="500" y="30" transform="rotate(-2 500 30)">-73dBm midband, not bad today</text>
-      </svg>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div>
-      <p>I started on the other side of the classroom — teaching digital signal processing and network
-      security to undergrads in Bangladesh, back when I'd read far more about spectrum analyzers than
-      I'd actually touched one. That gap is what pulled me into lab and fieldwork: measuring 5G across a steep
-      vineyard in Koblenz, syncing GPS to basebands at a mining site in Aachen, load-testing base
-      stations in Dortmund.</p>
-      <p>Somewhere in this, the questions started outlasting the projects — a KPI that didn't
-      behave the way the standard said it should, a sync error that only showed up underground. That's
-      the itch that keeps pulling me toward the research side of every project: <strong>5G/6G performance,
-      industrial IoT, and network architecture</strong>, chased all the way down instead of stopping at
-      "it works."</p>
-      <div class="focus-tags">
-        <span class="focus-tag">5G/6G Performance and Protocol Analysis</span>
-        <span class="focus-tag">RF Testing</span>
-        <span class="focus-tag">Cellular Network architecture</span>
-      </div>
-    </div>
-    <div class="side-panel card-shadow reveal">
-      <h3>Off the clock</h3>
-      <div class="off-item"><span class="ic">✈</span><div class="t"><b>Travelling</b>Wherever the next fieldwork sends me.</div></div>
-      <div class="off-item"><span class="ic">♪</span><div class="t"><b>Ukulele</b>A much slower signal to tune than a spectrum analyzer.</div></div>
-      <div class="off-item"><span class="ic">✎</span><div class="t"><b>Drawing</b>No KPIs, no dashboards — just a page and whatever's in front of me.</div></div>
-      <div class="off-item"><span class="ic">✦</span><div class="t"><b>Reading</b>Self-help and fiction — the other kind of debugging.</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="research">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">§1</span>
-      <h2 class="sec-title">Publications</h2>
-      <div class="sec-rule"></div>
-    </div>
-
-    <div class="pub-card card-shadow reveal">
-      <div class="pub-venue">IEEE WoWMoM 2025 · Fort Worth, Texas</div>
-      <div class="pub-title">A Measurement Study on 5G Performance in Steep Vineyards</div>
-      <div class="pub-authors">
-        Iftikhar A. Saeed, <strong>Arnova Abdullah</strong>, Daniel Schneider,
-        Melanie Reinelt, Simon Pannek, Tim Farnschläder, Hans Frey,
-        Wolfgang Kieß, Michael Wimmer.
-      </div>
-      <div class="pub-meta">
-        <span>26th IEEE International Symposium on a World of Wireless, Mobile and Multimedia Networks</span>
-        <a href="https://doi.org/10.1109/WoWMoM59955.2024.11027024" target="_blank" rel="noopener">
-          DOI: 10.1109/WoWMoM59955.2024.11027024 ↗
-        </a>
-      </div>
-    </div>
-
-    <div class="pub-card card-shadow reveal">
-      <div class="pub-venue">IEEE ICAC 2025</div>
-      <div class="pub-title">
-        Dynamic Edge Server Selection in Time-Varying Environments: A Reliability-Aware Predictive Approach
-      </div>
-      <div class="pub-authors">
-        Jaime Sebastian Burbano, <strong>Arnova Abdullah</strong>,
-        Eldiyar Zhantileuov, Mohan Liyanage, Rolf Schuster.
-      </div>
-      <div class="pub-meta">
-        <span>2025 7th International Conference on Advancements in Computing (ICAC)</span>
-        <a href="https://doi.org/10.1109/ICAC69156.2025.11361485" target="_blank" rel="noopener">
-          DOI: 10.1109/ICAC69156.2025.11361485 ↗
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-
-    <div class="sec-head" style="margin-top:52px;"><span class="sec-num">§2</span><h2 class="sec-title">Research &amp; side projects</h2><div class="sec-rule"></div></div>
-    <p class="sec-sub" style="margin-top:-18px;">What the curiosity does when there's no client asking for it.</p>
-    <div class="proj-grid">
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Mobile · Computer Vision</div>
-        <div class="proj-title">Emotion Detection App</div>
-        <div class="proj-desc">A React Native Android app recognising happy / sad / neutral faces in real time, using a CNN trained with TensorFlow and Wolfram Mathematica feature extraction.</div>
-        <div class="proj-stack"><span>React Native</span><span>TensorFlow</span><span>CNN</span></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Security · O-RAN</div>
-        <div class="proj-title">Attack Evaluation on Open RAN Simulators</div>
-        <div class="proj-desc">Mapped CVEs to MITRE ATT&amp;CK and ran Atomic Red Team tests against a Kubernetes-based O-RAN real-time RIC.</div>
-        <div class="proj-stack"><span>Atomic Red Team</span><span>Kali Linux</span><span>Kubernetes</span></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Machine Learning</div>
-        <div class="proj-title">Music Genre Classification</div>
-        <div class="proj-desc">Compared Decision Tree, Random Forest, SVM, and semi-supervised models on Spotify API audio data, reaching 73% accuracy.</div>
-        <div class="proj-stack"><span>scikit-learn</span><span>pandas</span></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Networking · VoIP</div>
-        <div class="proj-title">SIP Trunk &amp; VoIP Traffic Analysis</div>
-        <div class="proj-desc">Built a LAN/VoIP simulation in Cisco Packet Tracer and dissected SIP, SDP, and RTP flows in Wireshark.</div>
-        <div class="proj-stack"><span>Packet Tracer</span><span>Wireshark</span></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Signal Processing</div>
-        <div class="proj-title">Stochastic Process Analysis</div>
-        <div class="proj-desc">Simulated a binary symmetric channel, estimated PDFs, and analysed an ideal low-pass filter against discrete-time white noise, in Python.</div>
-        <div class="proj-stack"><span>Python</span><span>NumPy</span></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Networking · QoS</div>
-        <div class="proj-title">QoS-to-DSCP Domain Mapping</div>
-        <div class="proj-desc">Designed an enterprise DiffServ domain in Cisco Packet Tracer and validated DSCP mapping and scheduling behaviour.</div>
-        <div class="proj-stack"><span>DiffServ</span><span>Packet Tracer</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="work">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-num">§3</span><h2 class="sec-title">Where I've worked</h2><div class="sec-rule"></div></div>
-
-    <div class="log-entry card-shadow reveal">
-      <div class="log-meta"><span>Aug 2024 — Present · Dortmund, Germany</span><span class="proj">FH Dortmund · EU research consortium</span></div>
-      <div class="log-title">Research Associate</div>
-      <div class="log-org">FH Dortmund, Institute of Computer Science</div>
-      <ul class="log-points">
-        <li>Requirement analysis against 3GPP 5G standards for predictive QoS modelling and resource optimisation.</li>
-        <li>Coordinated integration and testing of private 5G infrastructure, including UE onboarding and LIPA-based local breakout for ultra-low-latency applications.</li>
-        <li>Load-tested 5G base stations and UEs across UL/DL and TDD configurations; benchmarked Open5GS, UERANSIM, and O-RAN RIC concepts.</li>
-      </ul>
-      <div class="photo-strip">
-        <span class="lightbox-trigger" data-src="img/fh-dortmund.jpg"><img src="img/fh-dortmund.jpg" alt="FH Dortmund team outing" draggable="false"></span>
-        <span class="lightbox-trigger" data-src="img/fh-dortmund1.jpg"><img src="img/fh-dortmund1.jpg" alt="FH Dortmund team outing" draggable="false"></span>
-      </div>
-    </div>
-
-    <div class="log-entry card-shadow reveal">
-      <div class="log-meta"><span>Apr 2024 — Jul 2024 · Koblenz, Germany</span><span class="proj">Project: NoLa</span></div>
-      <div class="log-title">Research Associate</div>
-      <div class="log-org">University of Koblenz, Institute of Computer Science</div>
-      <ul class="log-points">
-        <li>Field-tested a 5G campus network across a steep vineyard, evaluating application-layer KPIs.</li>
-        <li>Presented posters at AgrarWinterTage 2024 (Mainz); results later published at IEEE WoWMoM 2025.</li>
-      </ul>
-      <div class="photo-strip">
-        <span class="lightbox-trigger" data-src="img/vineyard.jpg"><img src="img/vineyard.jpg" alt="Koblenz vineyard 5G fieldwork" draggable="false"></span>
-        <span class="lightbox-trigger" data-src="img/vineyard1.jpg"><img src="img/vineyard1.jpg" alt="Koblenz vineyard 5G fieldwork" draggable="false"></span>
-      </div>
-    </div>
-
-    <div class="log-entry card-shadow reveal">
-      <div class="log-meta"><span>Apr 2023 — Mar 2024 · Aachen, Germany</span><span class="proj">Project: 6G-ANNA (BMBF)</span></div>
-      <div class="log-title">Student Assistant</div>
-      <div class="log-org">Fraunhofer Institute for Production Technology IPT</div>
-      <ul class="log-points">
-        <li>Deployed a GPS simulator and SDR to automate time-sync with 5G basebands — improved synchronisation accuracy by 15% at an industrial mining site.</li>
-        <li>Ran a mobile private 5G system across 3 industry fairs with zero downtime.</li>
-        <li>Redesigned industrial 5G traffic data storage, cutting retrieval time by 30%.</li>
-      </ul>
-    </div>
-
-    <div class="log-entry card-shadow reveal">
-      <div class="log-meta"><span>May 2022 — Mar 2023 · Bonn, Germany</span><span class="proj">Project: 5G CampusOS (BMWK)</span></div>
-      <div class="log-title">Working Student</div>
-      <div class="log-org">brown-iposs GmbH</div>
-      <ul class="log-points">
-        <li>4G/5G walk tests capturing real-world KPIs for 5G Standalone deployment optimisation.</li>
-        <li>Implemented a 5G Location Management Function (LMF) for indoor positioning R&amp;D.</li>
-      </ul>
-    </div>
-
-    <details class="log-entry card-shadow reveal">
-      <summary>
-        <div class="log-meta"><span>Nov 2019 — Apr 2021 · Dhaka, Bangladesh</span><span class="proj">Faculty</span></div>
-        <div class="log-title">Lecturer — Computer Science &amp; Engineering</div>
-        <div class="log-org">Ahsanullah Institute of Information and Technology (AIICT)</div>
-        <span class="expand-hint">+ show details</span>
-      </summary>
-      <ul class="log-points">
-        <li>Taught Digital Signal Processing, Computer Networks, and Network Security.</li>
-        <li>Supervised 25+ students in coursework and research on wireless communication and network security.</li>
-      </ul>
-      <div class="photo-strip">
-        <span class="lightbox-trigger" data-src="img/aiict.jpg"><img src="img/aiict.jpg" alt="AIICT lecturing" draggable="false"></span>
-        <span class="lightbox-trigger" data-src="img/aiict1.jpg"><img src="img/aiict1.jpg" alt="AIICT lecturing" draggable="false"></span>
-        <span class="lightbox-trigger" data-src="img/aiict3.jpg"><img src="img/aiict3.jpg" alt="AIICT lecturing" draggable="false"></span>
-      </div>
-    </details>
-
-    <details class="log-entry card-shadow reveal">
-      <summary>
-        <div class="log-meta"><span>Jul 2018 — Dec 2018 · Khulna, Bangladesh</span><span class="proj">Faculty</span></div>
-        <div class="log-title">Graduate Teaching Assistant — ECE</div>
-        <div class="log-org">Khulna University of Engineering and Technology (KUET)</div>
-        <span class="expand-hint">+ show details</span>
-      </summary>
-      <ul class="log-points">
-        <li>Assisted Digital Communication, Satellite Communication, and RADAR Systems labs.</li>
-        <li>Mentored students in signal-transmission projects.</li>
-      </ul>
-    </details>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-num">§4</span><h2 class="sec-title">Skills &amp; tools</h2><div class="sec-rule"></div></div>
-    <div class="panel-grid">
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>Programming &amp; automation</h3></div>
-        <div class="tag-row">
-          <button type="button" class="tag skill-btn" data-detail="Used to build KPI extraction, log parsing, and regression-style validation pipelines at FH Dortmund, plus the 5G QoS benchmarking framework in my Master's thesis (10,000+ samples).">Python</button>
-          <span class="tag">MATLAB</span><span class="tag">C / C++</span>
-          <span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Git</span>
-        </div>
-        <div class="skill-detail"></div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>RF &amp; drive-test tools</h3></div>
-        <div class="tag-row">
-          <button type="button" class="tag skill-btn" data-detail="Used for 4G/5G walk tests capturing real-world KPIs at brown-iposs, and for field-testing the 5G campus network across the Koblenz vineyard (NoLa project).">R&amp;S ROMES4</button>
-          <span class="tag">TSME Scanner</span><span class="tag">SwissQual</span>
-          <button type="button" class="tag skill-btn" data-detail="Paired with the CLAW GPS simulator at Fraunhofer IPT to auto-sync 5G basebands — improved sync accuracy by 15% at an industrial mining site.">HackRF SDR</button>
-          <span class="tag">Hawkeye</span>
-          <button type="button" class="tag skill-btn" data-detail="Used to trace protocol failures across PHY/MAC/RLC/PDCP/RRC/NAS layers at FH Dortmund, and to dissect SIP/SDP/RTP flows in a VoIP traffic-analysis side project.">Wireshark</button>
-        </div>
-        <div class="skill-detail"></div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>5G core, RAN &amp; UEs</h3></div>
-        <div class="tag-row">
-          <span class="tag">Open5GS</span><span class="tag">OAI</span>
-          <button type="button" class="tag skill-btn" data-detail="Evaluated RIC concepts (xApps/rApps) at FH Dortmund, and separately ran an attack evaluation against a Kubernetes-based O-RAN real-time RIC, mapping CVEs to MITRE ATT&amp;CK.">O-RAN / RIC</button>
-          <span class="tag">Quectel</span><span class="tag">Teltonika</span><span class="tag">EP5G</span>
-        </div>
-        <div class="skill-detail"></div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>Simulation, security &amp; ops</h3></div>
-        <div class="tag-row">
-          <button type="button" class="tag skill-btn" data-detail="Used to run the Kubernetes-based O-RAN real-time RIC targeted in an attack-evaluation side project, mapping CVEs to MITRE ATT&amp;CK with Atomic Red Team.">Docker / Kubernetes</button>
-          <span class="tag">Atomic Red Team</span>
-          <button type="button" class="tag skill-btn" data-detail="Used to compare Decision Tree, Random Forest, SVM, and semi-supervised models for a music genre classification side project on Spotify API data — 73% accuracy.">scikit-learn</button>
-          <button type="button" class="tag skill-btn" data-detail="Used to train a CNN for a React Native emotion-detection Android app, recognising happy / sad / neutral faces in real time.">TensorFlow</button>
-          <span class="tag">Jira</span>
-        </div>
-        <div class="skill-detail"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="education">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-num">§5</span><h2 class="sec-title">Education</h2><div class="sec-rule"></div></div>
-
-    <div class="edu-entry card-shadow reveal">
-      <div>
-        <div class="edu-degree">M.Sc. Communication Systems and Networks</div>
-        <div class="edu-school">TH Köln, Germany — 2021 – 2024</div>
-        <div class="edu-detail">Thesis: a Python-based benchmarking framework for QoS evaluation of private 5G networks in industrial use cases, validated against 10,000+ real-network samples. Colloquium grade 1.1, overall thesis grade 1.3.</div>
-        <div class="award-badge">Jahrgangsbeste — Top Graduate of the Year</div>
-        <div class="photo-strip">
-          <span class="lightbox-trigger" data-src="img/master.jpg"><img src="img/master.jpg" alt="Master's thesis work" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/master3.png"><img src="img/master3.png" alt="Master's thesis work" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/master4.jpg"><img src="img/master4.jpg" alt="Master's thesis work" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/jahrgangsbeste.jpg"><img src="img/jahrgangsbeste.jpg" alt="Jahrgangsbeste award ceremony" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/top-graduate.jpg"><img src="img/top-graduate.jpg" alt="Jahrgangsbeste award ceremony" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/top2.jpg"><img src="img/top2.jpg" alt="Jahrgangsbeste award handover" draggable="false"></span>
-          <span class="lightbox-trigger" data-src="img/top.jpg"><img src="img/top.jpg" alt="Jahrgangsbeste award and gift" draggable="false"></span>
-        </div>
-      </div>
-      <div class="edu-grade"><div class="g">1.4</div><div class="l">FINAL GRADE</div></div>
-    </div>
-
-    <div class="edu-entry card-shadow reveal">
-      <div>
-        <div class="edu-degree">B.Sc. Electronics and Communication Engineering</div>
-        <div class="edu-school">Khulna University of Engineering and Technology (KUET), Bangladesh — 2014 – 2018</div>
-        <div class="edu-detail">University Merit Scholarship, 2014 – 2018. Ranked 3rd of 60 students, CGPA 3.77/4.00.</div>
-        <div class="award-badge">Dean's List Award — 2016 &amp; 2017</div>
-        <a class="cert-link-inline" href="certificates/Arnova%20Abdullah%20-%20Dens%20Award%20-%20Bachelor.pdf" target="_blank" rel="noopener">View certificate ↗</a>
-      </div>
-      <div class="edu-grade"><div class="g">1.3</div><div class="l">GERMAN SCALE GRADE</div></div>
-    </div>
-
-    <div class="sec-head" style="margin-top:48px;"><span class="sec-num">§6</span><h2 class="sec-title">Certifications</h2><div class="sec-rule"></div></div>
-    <p class="sec-sub" style="margin-top:-18px;">Organized by area — more to be added.</p>
-    <div class="panel-grid">
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>Networking</h3></div>
-        <div class="tag-row">
-          <span class="tag">CCNA Routing &amp; Switching</span>
-          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%20Cisco%20Networking%20Course.pdf" target="_blank" rel="noopener">Cisco Networking Course</a>
-        </div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>Automation &amp; DevOps</h3></div>
-        <div class="tag-row">
-          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%20Devnet%20Associate%20%28R-139274%29.pdf" target="_blank" rel="noopener">Cisco DevNet Associate</a>
-        </div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>Security</h3></div>
-        <div class="tag-row"><span class="tag placeholder">Add certificate(s)</span></div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>5G</h3></div>
-        <div class="tag-row">
-          <a class="tag cert-link" href="certificates/Arnova%20Abdullah%20-%205G%20Advanced%20Essential%20-%20Online%20Course.pdf" target="_blank" rel="noopener">5G Advanced Essential</a>
-          <a class="tag cert-link" href="certificates/CertificateOfCompletion_5G%20Architecture%20Design%20Protocols%20Evolution%20and%20Deployment.pdf" target="_blank" rel="noopener">5G Architecture, Design, Protocols, Evolution &amp; Deployment</a>
-        </div>
-      </div>
-      <div class="module card-shadow reveal">
-        <div class="module-head"><span class="led"></span><h3>MATLAB</h3></div>
-        <div class="tag-row">
-          <a class="tag cert-link" href="certificates/Matlab%20onramp.pdf" target="_blank" rel="noopener">MATLAB Onramp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="split" style="margin-top:16px;">
-      <div class="mini-panel card-shadow reveal">
-        <h3>Languages</h3>
-        <div class="item">English <span class="v">Fluent</span></div>
-        <div class="item">German (telc B1) <a class="cert-link-inline" href="certificates/telcb1.pdf" target="_blank" rel="noopener">View certificate ↗</a></div>
-        <div class="item">Bengali <span class="v">Native</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="beyond">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-num">§7</span><h2 class="sec-title">Beyond the lab</h2><div class="sec-rule"></div></div>
-    <div class="proj-grid">
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Travelling</div>
-        <div class="proj-title">Wherever the next fieldwork sends me</div>
-        <div class="proj-desc">New cities, new SIM cards, new signal to chase.</div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Drawing</div>
-        <div class="proj-title">No KPIs, no dashboards</div>
-        <div class="proj-desc">Just a page and whatever's in front of me.</div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Ukulele</div>
-        <div class="proj-title">A much slower signal to tune</div>
-        <div class="proj-desc">Than a spectrum analyzer. Song videos coming soon.</div>
-        <div class="video-strip" data-placeholder="ukulele"></div>
-      </div>
-      <div class="proj-card card-shadow reveal">
-        <div class="proj-tag">Reading</div>
-        <div class="proj-title">The other kind of debugging</div>
-        <div class="proj-desc">Self-help and non-fiction — working out how people and systems actually operate.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="contact">
-  <div class="wrap">
-    <div class="footer-inner">
-      <div>
-        <h2>Say hi, or talk 5G with me.</h2>
-        <p class="sub">Open to roles and collaborations in RF/5G validation, test automation, and industrial network research.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:arnova.abdullah19@gmail.com">Email me <span class="arrow">→</span></a>
-        </div>
-      </div>
-    </div>
-    <div class="foot-meta">
-      <span>Arnova Abdullah — Moosburg, Germany</span>
-      <span>© 2026</span>
-    </div>
-  </div>
-</footer>
-
-<div class="lightbox-overlay" id="lightbox">
-  <button type="button" class="lightbox-close" id="lightboxClose">close ✕</button>
-  <img id="lightboxImg" src="" alt="Enlarged photo" draggable="false">
-  <div class="lightbox-note">Right-click and drag-to-save are disabled on this site</div>
+  <footer>
+    © 2026 Arnova Abdullah. Built with curiosity.
+  </footer>
 </div>
 
-<script>
-  // Scroll progress bar
-  var progressBar = document.getElementById('scrollProgress');
-  function updateProgress(){
-    var h = document.documentElement;
-    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-  }
-  document.addEventListener('scroll', updateProgress, { passive:true });
-  updateProgress();
-
-  // Reveal on scroll
-  var revealEls = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
-    revealEls.forEach(function(el){ io.observe(el); });
-  } else {
-    revealEls.forEach(function(el){ el.classList.add('visible'); });
-  }
-
-  // Active nav highlighting
-  var navLinks = document.querySelectorAll('nav.links a');
-  var sections = Array.prototype.slice.call(navLinks).map(function(link){
-    return document.querySelector(link.getAttribute('href'));
-  }).filter(Boolean);
-  function updateActiveNav(){
-    var pos = window.scrollY + 120;
-    var current = sections[0];
-    sections.forEach(function(sec){ if(sec.offsetTop <= pos) current = sec; });
-    navLinks.forEach(function(link){
-      link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
-    });
-  }
-  document.addEventListener('scroll', updateActiveNav, { passive:true });
-  updateActiveNav();
-
-  // Lightbox for photo-strip images
-  var lightbox = document.getElementById('lightbox');
-  var lightboxImg = document.getElementById('lightboxImg');
-  document.querySelectorAll('.lightbox-trigger').forEach(function(el){
-    el.addEventListener('click', function(){
-      lightboxImg.src = el.getAttribute('data-src');
-      lightboxImg.alt = el.querySelector('img') ? el.querySelector('img').alt : '';
-      lightbox.classList.add('open');
-    });
-  });
-  document.getElementById('lightboxClose').addEventListener('click', function(){
-    lightbox.classList.remove('open');
-    lightboxImg.src = '';
-  });
-  lightbox.addEventListener('click', function(e){
-    if(e.target === lightbox){ lightbox.classList.remove('open'); lightboxImg.src = ''; }
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ lightbox.classList.remove('open'); lightboxImg.src = ''; }
-  });
-
-  // Discourage casual image downloading (right-click save, drag-out)
-  document.querySelectorAll('img').forEach(function(img){
-    img.setAttribute('draggable', 'false');
-    img.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-    img.addEventListener('dragstart', function(e){ e.preventDefault(); });
-  });
-</script>
-<script>
-  document.querySelectorAll('.skill-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var panel = btn.closest('.module').querySelector('.skill-detail');
-      var wasOpenForThis = panel.classList.contains('open') && panel.dataset.owner === btn.textContent.trim();
-      document.querySelectorAll('.skill-btn.active').forEach(function(b){ if(b!==btn) b.classList.remove('active'); });
-      if(wasOpenForThis){
-        panel.classList.remove('open');
-        btn.classList.remove('active');
-        return;
-      }
-      panel.innerHTML = btn.dataset.detail;
-      panel.dataset.owner = btn.textContent.trim();
-      panel.classList.add('open');
-      btn.classList.add('active');
-    });
-  });
-</script>
 </body>
 </html>
